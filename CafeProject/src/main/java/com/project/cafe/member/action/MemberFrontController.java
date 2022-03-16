@@ -64,6 +64,19 @@ public class MemberFrontController extends HttpServlet
 				e.printStackTrace();
 			}
 		}
+		else if (command.equals("/CheckPassAction.me"))
+		{
+			System.out.println("C : /CheckPassAction.me 호출");
+			
+			action = new CheckPassAction();
+			
+			try {
+				forward = action.execute(req, resp);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		else
 		{
 			forward = new ActionForward();
@@ -87,6 +100,11 @@ public class MemberFrontController extends HttpServlet
 			{
 				System.out.println("C : 로그아웃 페이지 호출");
 				forward.setPath("/logout.me");
+			}
+			else if (command.equals("/checkPass.me"))
+			{
+				System.out.println("C : 비번 한 번 더 입력하는 페이지 호출");
+				forward.setPath("./member/checkPass.jsp");
 			}
 			else if (command.equals("/myPage.me"))
 			{

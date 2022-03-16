@@ -75,7 +75,7 @@ START MODULE AREA 1: header1
 		{
 			%>
 				<a href="./logout.me">로그아웃</a>&nbsp;&nbsp;&nbsp;
-	        	<a href="./myPage.me">마이페이지</a>
+	        	<a href="./checkPass.me">마이페이지</a>
 			<%
 		}
 	%>

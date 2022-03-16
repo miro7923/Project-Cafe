@@ -58,7 +58,8 @@ public class MemberUpdateAction implements Action
 		int result = dao.updateMember(dto);
 		if (1 == result)
 		{
-			System.out.println("M : 회원 정보 수정 완료");			
+			System.out.println("M : 회원 정보 수정 완료");
+			
 		}
 		else if (0 == result)
 		{

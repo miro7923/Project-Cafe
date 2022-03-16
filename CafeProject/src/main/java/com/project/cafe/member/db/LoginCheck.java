@@ -33,6 +33,7 @@ public class LoginCheck extends HttpServlet
 		{
 			session = req.getSession();
 			session.setAttribute("id", dto.getId());
+			session.setMaxInactiveInterval(600);
 		}
 		
 		out.print(result);
