@@ -29,6 +29,15 @@ $(document).ready(function()
 	}
 });
 
+function confirmToDelete()
+{
+	console.log('confirmToDelete() 호출');
+	if (!confirm('정말 회원 탈퇴 하시겠습니까?'))
+		return false;
+	else
+		return true;
+}
+
 // 비밀번호 유효성 검사하는 함수
 function passCheck()
 {
@@ -264,6 +273,7 @@ function finalCheck()
 	if (!$pass)
 	{
 		// 비밀번호가 입력되지 않았으면 false
+		alert('비밀번호를 확인해 주세요!');
 		myPage.pass.focus();
 		return false;
 	}
@@ -271,6 +281,7 @@ function finalCheck()
 	if (!$passConfirm)
 	{
 		// 비밀번호 확인이 일치하지 않으면 false
+		alert('비밀번호를 정확하게 입력했는지 확인해 주세요!');
 		myPage.confirm.focus();
 		return false;
 	}

@@ -1,5 +1,6 @@
 package com.project.cafe.member.action;
 
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.Calendar;
 
@@ -56,26 +57,19 @@ public class MemberUpdateAction implements Action
 		
 		// update 함수 호출
 		int result = dao.updateMember(dto);
-		if (1 == result)
-		{
-			System.out.println("M : 회원 정보 수정 완료");
-			
-		}
-		else if (0 == result)
-		{
-			
-		}
-		else 
-		{
-			
-		}
 		
+		System.out.println("M : result - " + result);
+		System.out.println("M : 회원 정보 수정 완료");
 		
-		// 마이페이지로 이동
-		ActionForward forward = new ActionForward();
-		forward.setPath("./myPage.me");
-		forward.setRedirect(true);
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.print("<script>");
+		out.print("alert('정보 수정이 완료되었습니다.');");
+		out.print("location.href='./myPage.me';");
+		out.print("</script>");
 		
-		return forward;
+		out.close();
+		
+		return null;
 	}
 }

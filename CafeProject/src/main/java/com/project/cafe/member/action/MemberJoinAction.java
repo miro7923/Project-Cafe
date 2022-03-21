@@ -32,13 +32,13 @@ public class MemberJoinAction implements Action
 		
 		// 전달받은 파라미터 저장 (JSP 페이지가 아니므로 액션태그는 쓸 수 없고 setter를 이용해 저장한다)
 		MemberDTO dto = new MemberDTO();
-		System.out.println("id set");
-		System.out.println("pass set");
-		System.out.println("name set");
-		System.out.println("city set");
-		System.out.println("birth set");
-		System.out.println("email set");
-		System.out.println("gender set");
+		dto.setId(request.getParameter("id"));
+		dto.setPass(request.getParameter("pass"));
+		dto.setName(request.getParameter("name"));
+		dto.setAddress(request.getParameter("city"));
+		dto.setBirth(Date.valueOf(request.getParameter("birth")));
+		dto.setEmail(request.getParameter("email"));
+		dto.setGender(request.getParameter("gender"));
 		
 		// 입력받은 생년월일로 나이 계산
 		int age = getAge(request.getParameter("birth"));

@@ -38,7 +38,7 @@ START MODULE AREA 3: Text | Form
     </div>
     <div data-layout="al-o1 de-o2 de10" class="MOD_SUBNAVIGATION1_Page">
       <h3>회원가입</h3><br>
-      <form name="join" action="./MemberJoinAction.me" method="post" onsubmit="return finalCheck();">
+      <form name="join" action="./MemberJoinAction.me" method="post"><!-- 빌드 때 onsubmit=return finalCheck() 추가하기! -->
         <div class="formRow">
           <label for="MOD_TEXTFORM_NameField">아이디 </label><input type="text" name="id" id="id" placeholder="5~10자 이내의 영문+숫자 조합">
         </div>

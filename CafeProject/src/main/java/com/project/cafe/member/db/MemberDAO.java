@@ -240,20 +240,18 @@ public class MemberDAO
 			// 1.2 DB 연결
 			// 회원 정보가 존재하는 지 먼저 확인한 후에 수정 동작 수행
 			con = getCon();
-			sql = "select id from cafe_members where id=?";
+			sql = "select * from cafe_members where id=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, dto.getId());
 			rs = pstmt.executeQuery();
 			
 			if (rs.next())
 			{
-				// ! 마이페이지 입장 전에 비밀번호 한 번 더 확인하고
-				// ! 비밀번호 일치해서 입장하면 아이디 확인 후 수정하는 것으로 변경
-				if (rs.getString("id").equals(dto.getPass()))
+				if (rs.getString("id").equals(dto.getId()))
 				{
 					// 회원 정보가 있으면
 					// 3. sql 작성 & pstmt 객체 생성
-					sql = "update cafe_members set pass=?, name=?, birth=?, age=?, gender=?, address=?, phone=?, email=?";
+					sql = "update cafe_members set pass=?, name=?, birth=?, age=?, gender=?, address=?, phone=?, email=? where id=?";
 					pstmt = con.prepareStatement(sql);
 					
 					// ? 채우기
@@ -265,6 +263,7 @@ public class MemberDAO
 					pstmt.setString(6, dto.getAddress());
 					pstmt.setString(7, dto.getPhone());
 					pstmt.setString(8, dto.getEmail());
+					pstmt.setString(9, dto.getId());
 					
 					// 4. sql 실행
 					pstmt.executeUpdate();
@@ -272,11 +271,10 @@ public class MemberDAO
 					// 5. 데이터 처리
 					// 수정 성공
 					result = 1;
-					System.out.println("회원 정보 수정 완료");
+					System.out.println("DAO : 회원 정보 수정 완료");
 				}
 				else 
 				{
-					// 비밀번호 불일치
 					result = 0;
 				}
 			}
@@ -296,4 +294,52 @@ public class MemberDAO
 		return result;
 	}
 	// updateMember(dto)
+	
+	// deleteMember(dto)
+	public int deleteMember(MemberDTO dto)
+	{
+		int result = -1;
+		
+		try {
+			// 1.2 DB 연결
+			con = getCon();
+			
+			// 3. sql 작성 & pstmt 생성
+			sql = "select pass from cafe_members where id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getId());
+			
+			// 4. sql 실행
+			rs = pstmt.executeQuery();
+			
+			// 5. 데이터 처리
+			if (rs.next())
+			{
+				if (rs.getString("pass").equals(dto.getPass()))
+				{
+					// 삭제하는 쿼리문 실행
+					sql = "delete from cafe_members where id=?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, dto.getId());
+					
+					result = pstmt.executeUpdate();
+					
+					System.out.println("DAO : 회원정보 삭제 완료");
+				}
+				else
+					result = 0;
+			}
+			else
+				result = -1;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			CloseDB();
+		}
+		
+		return result;
+	}
+	// deleteMember(dto)
 }

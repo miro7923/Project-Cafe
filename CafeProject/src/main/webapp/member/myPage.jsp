@@ -47,10 +47,12 @@ START MODULE AREA 3: Text | Form
       	
       	MemberDAO dao = new MemberDAO();
       	MemberDTO dto = dao.getMember(id);
+      	System.out.println("myPage.jsp dto 저장 성공");
       	
       	String[] regdate = dto.getRegdate().toString().split(" ");
+      	System.out.println("regdate 저장 완료");
       %>
-      <form name="myPage" action="./memberUpdateAction.me" method="post" onsubmit="return finalCheck();">
+      <form name="myPage" action="./MemberUpdateAction.me" method="post" onsubmit="return finalCheck();">
         <div class="formRow">
           <label for="MOD_TEXTFORM_NameField">회원번호 </label><input type="text" name="memberNum" id="memberNum" value="<%=dto.getMemberNum() %>" readonly>
         </div>
@@ -138,6 +140,11 @@ START MODULE AREA 3: Text | Form
           <label for="MOD_TEXTFORM_MsgField">Message </label><textarea id="MOD_TEXTFORM_MsgField" placeholder="Enter your message..."></textarea></div>
 -->
         <button type="submit" class="btn">회원 정보 수정</button>
+      </form><br>
+      <form action="./delete.me" method="post">
+        <input type="hidden" name="id" value="<%=dto.getId()%>">
+        <input type="hidden" name="pass" value="<%=dto.getPass()%>">
+        <button type="submit" class="btn">회원탈퇴</button>
       </form>
       </div>
   </div>

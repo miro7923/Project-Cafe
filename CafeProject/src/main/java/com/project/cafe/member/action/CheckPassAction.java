@@ -26,26 +26,26 @@ public class CheckPassAction implements Action
 		
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
-		ActionForward forward = new ActionForward();
 		
 		// DB 연동해서 아이디와 비밀번호가 일치하는 지 확인
 		MemberDAO dao = new MemberDAO();
 		int result = dao.loginCheck(dto);
+		out.println("<script>");
 		if (1 == result)
 		{
 			// 비번 일치
-			forward.setPath("./myPage.me");
+			out.println("location.href='./myPage.me';");
 		}
 		else 
 		{
 			// 비번 불일치
-			out.println("<script>alert('비밀번호가 일치하지 않습니다!');</script>");
-			forward.setPath("./checkPass.me");
+			out.println("alert('비밀번호가 일치하지 않습니다!');");
+			out.println("history.back();");
 		}
 		
-		forward.setRedirect(true);
+		out.println("</script>");
 		out.close();
 		
-		return forward;
+		return null;
 	}
 }

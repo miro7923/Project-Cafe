@@ -51,9 +51,9 @@ public class MemberFrontController extends HttpServlet
 				e.printStackTrace();
 			}
 		}
-		else if (command.equals("/memberUpdateAction.me"))
+		else if (command.equals("/MemberUpdateAction.me"))
 		{
-			System.out.println("C : /memberUpdateAction.me 호출");
+			System.out.println("C : /MemberUpdateAction.me 호출");
 			
 			action = new MemberUpdateAction();
 			
@@ -69,6 +69,19 @@ public class MemberFrontController extends HttpServlet
 			System.out.println("C : /CheckPassAction.me 호출");
 			
 			action = new CheckPassAction();
+			
+			try {
+				forward = action.execute(req, resp);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if (command.equals("/MemberDeleteAction.me"))
+		{
+			System.out.println("C : /MemberDeleteAction.me 호출");
+			
+			action = new MemberDeleteAction();
 			
 			try {
 				forward = action.execute(req, resp);
@@ -110,6 +123,11 @@ public class MemberFrontController extends HttpServlet
 			{
 				System.out.println("C : 마이페이지 호출");
 				forward.setPath("./member/myPage.jsp");
+			}
+			else if (command.equals("/delete.me"))
+			{
+				System.out.println("C : 삭제 확인 페이지 호출");
+				forward.setPath("./member/delete.jsp");
 			}
 			
 			forward.setRedirect(false);
