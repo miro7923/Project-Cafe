@@ -13,6 +13,7 @@ border-bottom: 3px solid #036;
 table.type09 tbody th {
 width: 100px;
 padding: 10px;
+margin: 10px;
 font-weight: bold;
 vertical-align: top;
 border-bottom: 1px solid #ccc;
@@ -21,6 +22,7 @@ background: #f3f6f7;
 table.type09 td {
 width: 400px;
 padding: 10px;
+margin: 10px;
 vertical-align: top;
 border-bottom: 1px solid #ccc;
 }

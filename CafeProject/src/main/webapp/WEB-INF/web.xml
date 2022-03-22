@@ -21,4 +21,16 @@
     <url-pattern>*.me</url-pattern>
   </servlet-mapping>
   <!-- 회원(Member) 처리 컨트롤러 -->
+  
+  <!-- 게시판(Board) 처리 컨트롤러 -->
+  <servlet>
+    <servlet-name>BoardFrontController</servlet-name>
+    <servlet-class>com.project.cafe.board.action.BoardFrontController</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>BoardFrontController</servlet-name>
+    <url-pattern>*.bo</url-pattern>
+  </servlet-mapping>
+  <!-- 게시판(Board) 처리 컨트롤러 -->
 </web-app>

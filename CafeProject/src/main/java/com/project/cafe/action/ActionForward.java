@@ -1,4 +1,4 @@
-package com.project.cafe.member.action;
+package com.project.cafe.action;
 
 public class ActionForward 
 {

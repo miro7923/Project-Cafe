@@ -1,4 +1,4 @@
-package com.project.cafe.member.action;
+package com.project.cafe.action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
