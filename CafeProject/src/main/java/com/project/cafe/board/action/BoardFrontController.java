@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.project.cafe.action.Action;
 import com.project.cafe.action.ActionForward;
 
 public class BoardFrontController extends HttpServlet
@@ -31,22 +32,39 @@ public class BoardFrontController extends HttpServlet
 		
 		
 		// 2. 가상주소 매핑
+		Action action = null;
 		ActionForward forward = null;
 		
-		if (command.equals("/board.bo"))
+		if (command.equals("/BoardWriteAction.bo"))
 		{
-			System.out.println("C : /board.bo 호출");
+			System.out.println("C : /BoardWriteAction.bo 호출");
 			
-			forward = new ActionForward();
-			forward.setPath("./contents/boardList.jsp");
-			forward.setRedirect(false);
+			action = new BoardWriteAction();
+			
+			try {
+				forward = action.execute(request, response);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		else if (command.equals("/boardWrite.bo"))
+		else 
 		{
-			System.out.println("C : /boardWrite.bo 호출");
-			
 			forward = new ActionForward();
-			forward.setPath("./contents/boardWrite.jsp");
+
+			if (command.equals("/board.bo"))
+			{
+				System.out.println("C : /board.bo 호출");
+				
+				forward.setPath("./contents/boardList.jsp");
+			}
+			else if (command.equals("/boardWrite.bo"))
+			{
+				System.out.println("C : /boardWrite.bo 호출");
+				
+				forward.setPath("./contents/boardWrite.jsp");
+			}			
+
 			forward.setRedirect(false);
 		}
 		
