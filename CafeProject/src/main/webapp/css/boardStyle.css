@@ -26,3 +26,13 @@ margin: 10px;
 vertical-align: top;
 border-bottom: 1px solid #ccc;
 }
+table.type09 a {
+	color: black;
+}
+#boardPage {
+	padding: 10px;
+	text-align: center;
+}
+#boardPage a {
+	color: black;
+}

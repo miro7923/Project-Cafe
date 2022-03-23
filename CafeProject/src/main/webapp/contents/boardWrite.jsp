@@ -21,12 +21,18 @@ END MODULE AREA 2: Menu 1
 <!--
 START MODULE AREA 3: Sub Navigation 1
 -->
+<%
+	String id = (String)session.getAttribute("id");
+	if (null == id)
+		response.sendRedirect("./login.me");
+%>
 <section class="MOD_SUBNAVIGATION1">
   <div data-layout="_r">
     <jsp:include page="../inc/leftNav.jsp"></jsp:include>
     <div data-layout="al-o1 de-o2 de10" class="MOD_SUBNAVIGATION1_Page">
     	<h2>게시글 작성</h2>
     	<form name="write" action="./BoardWriteAction.bo" method="post" onsubmit="return finalCheck();">
+    	<input type="hidden" name="id" value="<%=id%>">
         <div class="formRow">
           <label for="MOD_TEXTFORM_NameField">제목 </label><input type="text" name="title" id="title">
         </div>

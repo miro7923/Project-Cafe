@@ -48,17 +48,24 @@ public class BoardFrontController extends HttpServlet
 				e.printStackTrace();
 			}
 		}
+		else if (command.equals("/boardList.bo"))
+		{
+			System.out.println("C : /boardList.bo 호출");
+			
+			action = new BoardListAction();
+			
+			try {
+				forward = action.execute(request, response);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		else 
 		{
 			forward = new ActionForward();
 
-			if (command.equals("/board.bo"))
-			{
-				System.out.println("C : /board.bo 호출");
-				
-				forward.setPath("./contents/boardList.jsp");
-			}
-			else if (command.equals("/boardWrite.bo"))
+			if (command.equals("/boardWrite.bo"))
 			{
 				System.out.println("C : /boardWrite.bo 호출");
 				
