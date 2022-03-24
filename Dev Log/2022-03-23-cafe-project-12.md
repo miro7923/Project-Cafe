@@ -586,7 +586,7 @@ public ArrayList<BoardDTO> getPostList(int startRow, int pageSize)
 
 * 이제 게시글 목록 페이지로 오면 드디어 작성된 게시글들이 출력된다!
 
-<p align="center"><img src="https://miro7923.github.io/assets/images/postList.png"></p>
+<p align="center"><img src="https://miro7923.github.io/assets/images/postList.png" width="500"></p>
 
 * 뿌듯하다! 😄
 * 이제 각 게시글 제목을 누르면 내용을 볼 수 있는 기능을 구현할 것이다.<br><br><br>
