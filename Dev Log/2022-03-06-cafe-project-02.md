@@ -27,7 +27,7 @@ tags:
 * 평가 기준에 사이트의 디자인 구현(HTML/CSS 등 프론트엔드)은 포함되지 않기 때문에 본인이 쓰고 싶은 HTML/CSS 템플릿을 구한 뒤 회원 관리 기능을 구현하면 된다.<br><br><br>
 
 # 진행상황
-<p align="center"><img src="../../assets/images/e-r-Diagram.png"></p><br>
+<p align="center"><img src="https://miro7923.github.io/assets/images/e-r-Diagram.png"></p><br>
 
 * 오늘은 좀 더 진행하기 전에 `E-R 다이어그램`을 만들면서 `DB 테이블`을 정리하고 가는 것이 좋을 거 같아서 내 프로젝트에 필요한 `E-R 다이어그램`을 만들었다.
 * 회원은 게시판에 글과 댓글을 쓰지 않을 수도 있지만 쓴다면 여러 개 쓸 수 있고 게시글과 댓글은 회원이 쓸 때에만 생성될 수 있다. 그리고 댓글 또한 게시글이 없으면 생성될 수 없고 한 게시글에 댓글이 달리지 않을 수도, 여러 개의 댓글이 달릴 수도 있다.
@@ -51,7 +51,7 @@ create table cafe_members (
 );
 ```
 
-<p align="center"><img src="../../assets/images/memberTable.png"></p><br>
+<p align="center"><img src="https://miro7923.github.io/assets/images/memberTable.png"></p><br>
 
 * member_num : 회원 번호. 1부터 차례대로 증가하며 회원의 고유 식별자로 사용
 * id : 회원 아이디. 중복되지 않도록 `unique` 조건을 걸어주었다.
@@ -84,7 +84,7 @@ CREATE TABLE `cafe_board` (
 )
 ```
 
-<p align="center"><img src="../../assets/images/postTable.png"></p><br>
+<p align="center"><img src="https://miro7923.github.io/assets/images/postTable.png"></p><br>
 
 * num : 게시글 번호. 1부터 차례대로 증가하며 고유 식별자로 사용
 * id : 작성자 아이디
@@ -111,7 +111,7 @@ create table comment (
 );
 ```
 
-<p align="center"><img src="../../assets/images/commentTable.png"></p><br>
+<p align="center"><img src="https://miro7923.github.io/assets/images/commentTable.png"></p><br>
 
 * num : 댓글 번호. 1부터 차례대로 증가하며 고유 식별자로 사용
 * post_num : 댓글이 등록된 글 번호
