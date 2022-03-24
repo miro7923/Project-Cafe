@@ -27,7 +27,7 @@ tags:
 * 평가 기준에 사이트의 디자인 구현(HTML/CSS 등 프론트엔드)은 포함되지 않기 때문에 본인이 쓰고 싶은 HTML/CSS 템플릿을 구한 뒤 회원 관리 기능을 구현하면 된다.<br><br><br>
 
 # 진행상황
-<p align="center"><img src="../../assets/images/cafeProj01.png"></p><br>
+<p align="center"><img src="https://miro7923.github.io/assets/images/cafeProj01.png"></p><br>
 
 * 오늘 진행한 것은 무료 템플릿 사이트에서 다운받은 템플릿을 이용해 기본적인 사이트 틀을 만들었다.
 * 메인 페이지를 만들고 로그인 페이지와 회원가입 페이지 폼을 만들어서 연결시키는 것 까지 했다.<br><br>
