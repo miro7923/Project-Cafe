@@ -24,23 +24,14 @@ END MODULE AREA 2: Menu 1
 START MODULE AREA 3: Sub Navigation 1
 -->
 <%
-	System.out.println("boardList.jsp 호출");
-
 	String id = (String)session.getAttribute("id");
 	
 	boolean isLogin = false;
 	if (null == id) isLogin = false;
 	else isLogin = true;
 	
-	// 글 목록과 페이지 정보 저장
-	int postCnt = (int)request.getAttribute("postCnt");
-	ArrayList<BoardDTO> postList = (ArrayList<BoardDTO>)request.getAttribute("postList");
-	
+	BoardDTO dto = (BoardDTO)request.getAttribute("dto");
 	String pageNum = (String)request.getAttribute("pageNum");
-	int pageCnt = (int)request.getAttribute("pageCnt");
-	int pageBlockCnt = (int)request.getAttribute("pageBlockCnt");
-	int startBlock = (int)request.getAttribute("startBlock");
-	int endBlock = (int)request.getAttribute("endBlock");
 %>
 <section class="MOD_SUBNAVIGATION1">
   <div data-layout="_r">
@@ -59,55 +50,34 @@ START MODULE AREA 3: Sub Navigation 1
         </colgroup>
 		<thead>
 		<tr>
-		<th scope="cols">No.</th>
-		<th scope="cols">제목</th>
-		<th scope="cols">작성자</th>
-		<th scope="cols">작성일</th>
-		<th scope="cols">조회수</th>
+		<th scope="cols"><%=dto.getNum() %></th>
+		<th scope="cols"><%=dto.getTitle() %></th>
+		<th scope="cols"><%=dto.getId() %></th>
+		<th scope="cols"><%=dto.getDate() %></th>
+		<th scope="cols">조회수 <%=dto.getReadcount() %></th>
 		</tr>
 		</thead>
 		<tbody>
-		<%
-			if (null != postList) {
-			for (int i = 0; i < postList.size(); i++) 
-			{
-				BoardDTO dto = postList.get(i);
-		%>
 			<tr>
-			<th scope="row"><%=dto.getNum() %></th>
-			<td>
-		<%
-			int width = 0;
-			if (0 < dto.getRe_lev()) // 답글일 때
-			{
-				width = 10 * dto.getRe_lev();
-		%>
-			<img class="reImg" src="./contents/level.gif" width="<%=width%>" height="15">
-			<img class="reImg" src="./contents/re.gif">
-		<%
-			}
-		%>
-			  <a href="./BoardContent.bo?num=<%=dto.getNum()%>&pageNum=<%=pageNum%>"><%=dto.getTitle() %></a>
-			</td>
-			<td><%=dto.getId() %></td>
-			<td><%=dto.getDate() %></td>
-			<td><%=dto.getReadcount() %></td>
+			  <td colspan="5" style="white-space:pre-wrap; word-wrap:break-word; word-break: break-all;"><%=dto.getContent() %><br><br><br></td>
 			</tr>
-		<%}} %>
+			<tr>
+			  <td colspan="2">첨부파일</td>
+			  <td colspan="3"><%=dto.getFile() %></td>
+			</tr>
 		</tbody>
 		</table><br>
 		<div id="boardPage">
-			<%if (startBlock > pageBlockCnt) { %>
-				<a href="./BoardList.bo?pageNum=<%=startBlock - pageBlockCnt%>">[이전]</a>
-			<%} %>
-			
-			<%for (int i = startBlock; i <= endBlock; i++) { %>
-				<a href="./BoardList.bo?pageNum=<%=i%>">[<%=i %>]</a>
-			<%} %>
-			
-			<%if (endBlock > pageBlockCnt) { %>
-				<a href="./BoardList.bo?pageNum=<%=startBlock + pageBlockCnt%>">[다음]</a>
-			<%} %>
+		  <%if (null != id && id.equals(dto.getId())) { %>
+		    <button type="button" class="btn" 
+		      onclick="location.href='./BoardModify.bo?num=<%=dto.getNum()%>&pageNum=<%=pageNum%>';">수정하기</button>
+		    <button type="button" class="btn" 
+		      onclick="location.href='./BoardDeleteConfirm.bo?num=<%=dto.getNum()%>&pageNum=<%=pageNum%>';">삭제하기</button>
+		  <%} %>
+		  <button type="button" class="btn" 
+		    onclick="location.href='./BoardReWrite.bo?num=<%=dto.getNum()%>&re_ref=<%=dto.getRe_ref()%>&re_lev=<%=dto.getRe_lev()%>&re_seq=<%=dto.getRe_seq()%>';">답글쓰기</button>
+		  <button type="button" class="btn" 
+		    onclick="location.href='./BoardList.bo?pageNum=<%=pageNum%>';">목록이동</button>
 		</div>
       </div>
   </div>

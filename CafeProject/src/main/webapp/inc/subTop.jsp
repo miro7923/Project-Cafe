@@ -15,7 +15,7 @@ START MODULE AREA 2: Menu 1
       </svg>
       <ul class="AP_Menu_List">
         <li>
-          <a href="./boardList.bo" data-theme="_bgp">최신글 보기</a>
+          <a href="./BoardList.bo" data-theme="_bgp">최신글 보기</a>
         </li>
 <!--
         <li>

@@ -67,20 +67,14 @@ public class BoardListAction implements Action
 		
 		// request 영역에 글 목록 정보 저장
 		request.setAttribute("postCnt", postCnt);
-		System.out.println("postCnt : "+postCnt);
 		request.setAttribute("postList", postList);
 		
 		// request 영역에 페이징 처리 정보 저장
 		request.setAttribute("pageNum", pageNum);
-		System.out.println("pageNum : "+pageNum);
 		request.setAttribute("pageCnt", pageCnt);
-		System.out.println("pageCnt : "+pageCnt);
 		request.setAttribute("pageBlockCnt", pageBlockCnt);
-		System.out.println("pageBlockCnt : "+pageBlockCnt);
 		request.setAttribute("startBlock", startBlock);
-		System.out.println("startBlock : "+startBlock);
 		request.setAttribute("endBlock", endBlock);
-		System.out.println("endBlock : "+endBlock);
 		
 		// 페이지 이동
 		ActionForward forward = new ActionForward();

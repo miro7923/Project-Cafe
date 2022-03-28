@@ -4,6 +4,7 @@
 <html lang="en">
 <!-- Start Head -->
   <jsp:include page="../inc/top.jsp"></jsp:include>
+  <script src="${pageContext.request.contextPath }/js/main.js"></script>
 <!-- End Head -->
 
 <body class="modern">
@@ -51,8 +52,8 @@ START MODULE AREA 4: Article Block 1
       <a href="#" class="MOD_ARTICLEBLOCKS1_BlockLarge">
         <div style="background-image:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/96252/aperitif-large-object1-luca-bravo.jpg)" class="MOD_ARTICLEBLOCKS1_Img" role="img" aria-label="alt text"></div>
         <div class="MOD_ARTICLEBLOCKS1_Txt">
-          <h3 class="MOD_ARTICLEBLOCKS1_Title">Article Title</h3>
-          <p class="MOD_ARTICLEBLOCKS1_Category">Category</p>
+          <h3 class="MOD_ARTICLEBLOCKS1_Title" id="mainTitle1">Article Title</h3>
+          <p class="MOD_ARTICLEBLOCKS1_Category" id="mainContent1">Category</p>
         </div>
       </a>
     </div>
@@ -61,8 +62,8 @@ START MODULE AREA 4: Article Block 1
         <div style="background-image:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/96252/aperitif-large-object1-luca-bravo.jpg)" class="MOD_ARTICLEBLOCKS1_Img" role="img" aria-label="alt text"></div>
 
         <div class="MOD_ARTICLEBLOCKS1_Txt">
-          <h3 class="MOD_ARTICLEBLOCKS1_Title">Article Title</h3>
-          <p class="MOD_ARTICLEBLOCKS1_Category">Category</p>
+          <h3 class="MOD_ARTICLEBLOCKS1_Title" id="mainTitle2">Article Title</h3>
+          <p class="MOD_ARTICLEBLOCKS1_Category" id="mainContent2">Category</p>
         </div>
       </a>
     </div>
@@ -71,13 +72,11 @@ START MODULE AREA 4: Article Block 1
         <div style="background-image:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/96252/aperitif-large-object1-luca-bravo.jpg)" class="MOD_ARTICLEBLOCKS1_Img" role="img" aria-label="alt text"></div>
 
         <div class="MOD_ARTICLEBLOCKS1_Txt">
-          <h3 class="MOD_ARTICLEBLOCKS1_Title">Article Title</h3>
-          <p class="MOD_ARTICLEBLOCKS1_Category">Category</p>
+          <h3 class="MOD_ARTICLEBLOCKS1_Title" id="mainTitle3">Article Title</h3>
+          <p class="MOD_ARTICLEBLOCKS1_Category" id="mainContent3">Category</p>
         </div>
       </a>
     </div>
-
-
   </div>
 </section>
 <!--

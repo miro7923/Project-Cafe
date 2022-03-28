@@ -178,4 +178,259 @@ public class BoardDAO
 		return postList;
 	}
 	// getPostList(startRow, pageSize)
+	
+	// updateReadCount(num)
+	public void updateReadCount(int num)
+	{
+		try {
+			con = getCon();
+			
+			sql = "update cafe_board set readcount = readcount + 1 where num=?";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, num);
+			
+			pstmt.executeUpdate();
+			
+			System.out.println("DAO : 조회수 1 증가 완료");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			closeDB();
+		}
+	}
+	// updateReadCount(num)
+	
+	// getPost(num)
+	public BoardDTO getPost(int num)
+	{
+		BoardDTO dto = null;
+		
+		try {
+			con = getCon();
+			
+			sql = "select * from cafe_board where num=?";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, num);
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next())
+			{
+				dto = new BoardDTO();
+				
+				dto.setContent(rs.getString("content"));
+				dto.setDate(rs.getDate("date"));
+				dto.setFile(rs.getString("file"));
+				dto.setId(rs.getString("id"));
+				dto.setIp(rs.getString("ip"));
+				dto.setNum(rs.getInt("num"));
+				dto.setRe_lev(rs.getInt("re_lev"));
+				dto.setRe_ref(rs.getInt("re_ref"));
+				dto.setRe_seq(rs.getInt("re_seq"));
+				dto.setReadcount(rs.getInt("readcount"));
+				dto.setTitle(rs.getString("title"));
+				
+				System.out.println("DAO : 글 1개 정보 저장 완료");
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			closeDB();
+		}
+		
+		return dto;
+	}
+	// getPost(num)
+	
+	// modifyPost(num)
+	public int modifyPost(BoardDTO dto)
+	{
+		int ret = -1;
+		
+		try {
+			con = getCon();
+			
+			// 번호로 해당 글 찾기
+			sql = "select * from cafe_board where num=?";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, dto.getNum());
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next())
+			{
+				// update 동작 수행
+				sql = "update cafe_board set title=?, content=? where num=?";
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, dto.getTitle());
+				pstmt.setString(2, dto.getContent());
+				pstmt.setInt(3, dto.getNum());
+				
+				ret = pstmt.executeUpdate();
+				
+				System.out.println("DAO : 글 수정 완료");
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			closeDB();
+		}
+		
+		return ret;
+	}
+	// modifyPost(num)
+	
+	// deletePost(num)
+	public int deletePost(int num)
+	{
+		int ret = -1;
+		
+		try {
+			con = getCon();
+			
+			// 삭제 대상 글 찾기
+			sql = "select * from cafe_board where num=?";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, num);
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next())
+			{
+				sql = "delete from cafe_board where num=?";
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setInt(1, num);
+				
+				ret = pstmt.executeUpdate();
+				
+				System.out.println("DAO : 글 삭제 완료");
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			closeDB();
+		}
+		
+		return ret;
+	}
+	// deletePost(num)
+	
+	// reWritePost(dto)
+	public void reWritePost(BoardDTO dto)
+	{
+		int curNum = 0; // 이번에 쓸 글 번호
+		
+		try {
+			con = getCon();
+			
+			// 글 번호 계산
+			sql = "select max(num) from cafe_board";
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next())
+				curNum = rs.getInt(1) + 1;
+			
+			System.out.println("DAO : 답글번호 : "+curNum);
+			
+			// 답글순서 재배치(seq 변경)
+			// re_ref 가 같은 그룹내에서 update 동작 수행 - re_seq값이 기존값보다 큰 값이 있을 때 re_seq + 1
+			// 없으면(0) 정렬할 게 없으니까 그냥 지나갈 것임
+			sql = "update cafe_board set re_seq = re_seq + 1 where re_ref = ? and re_seq > ?";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, dto.getRe_ref());
+			pstmt.setInt(2, dto.getRe_seq());
+			
+			int result = pstmt.executeUpdate();
+			if (0 < result)
+				System.out.println("DAO : 답글 순서 재배치");
+			
+			// 답글 저장 동작 수행
+			sql = "insert into cafe_board(num, id, title, content, readcount, re_ref, re_lev, re_seq, date, ip, file)"
+					+ " values(?,?,?,?,?,?,?,?,now(),?,?)";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, curNum);
+			pstmt.setString(2, dto.getId());
+			pstmt.setString(3, dto.getTitle());
+			pstmt.setString(4, dto.getContent());
+			pstmt.setInt(5, 0);
+			
+			pstmt.setInt(6, dto.getRe_ref()); // 게시글 그룹
+			pstmt.setInt(7, dto.getRe_lev() + 1); // 들여쓰기 - 기준글 + 1
+			pstmt.setInt(8, dto.getRe_seq() + 1); // 그룹 내 순서 - 기준글 + 1
+			
+			pstmt.setString(9, dto.getIp());
+			pstmt.setString(10, dto.getFile());
+			
+			pstmt.executeUpdate();
+			
+			System.out.println("DAO : 답글 작성 완료");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			closeDB();
+		}
+	}
+	// reWritePost(dto)
+	
+	// getPosts(cnt, len)
+	public ArrayList<BoardDTO> getPosts(int cnt, int len)
+	{
+		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
+		
+		try {
+			con = getCon();
+			
+			sql = "select title, content from cafe_board order by num desc limit ?";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, cnt);
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next())
+			{
+				BoardDTO dto = new BoardDTO();
+				dto.setTitle(rs.getString("title"));
+				
+				// 문자열 일부만 저장
+				String content = rs.getString("content");
+				if (len > content.length())
+					content = content.substring(0, content.length() - 1);
+				else
+					content = content.substring(0, len);
+				
+				dto.setContent(content);
+				
+				list.add(dto);
+			}
+			
+			System.out.println("DAO : 글 "+list.size()+"개 저장 완료");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	// getPosts(cnt, len)
 }

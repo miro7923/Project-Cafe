@@ -48,11 +48,76 @@ public class BoardFrontController extends HttpServlet
 				e.printStackTrace();
 			}
 		}
-		else if (command.equals("/boardList.bo"))
+		else if (command.equals("/BoardList.bo"))
 		{
-			System.out.println("C : /boardList.bo 호출");
+			System.out.println("C : /BoardList.bo 호출");
 			
 			action = new BoardListAction();
+			
+			try {
+				forward = action.execute(request, response);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if (command.equals("/BoardContent.bo"))
+		{
+			System.out.println("C : /BoardContent.bo 호출");
+			
+			action = new BoardContentAction();
+			
+			try {
+				forward = action.execute(request, response);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if (command.equals("/BoardModify.bo"))
+		{
+			System.out.println("C : /BoardModify.bo 호출");
+			
+			action = new BoardModifyAction();
+			
+			try {
+				forward = action.execute(request, response);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if (command.equals("/BoardModifyPro.bo"))
+		{
+			System.out.println("C : /BoardModifyPro.bo 호출");
+			
+			action = new BoardModifyProAction();
+			
+			try {
+				forward = action.execute(request, response);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if (command.equals("/BoardDelete.bo"))
+		{
+			System.out.println("C : /BoardDelete.bo 호출");
+			
+			action = new BoardDeleteAction();
+			
+			try {
+				forward = action.execute(request, response);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if (command.equals("/BoardReWriteAction.bo"))
+		{
+			System.out.println("C : /BoardReWriteAction.bo 호출");
+			
+			action = new BoardReWriteAction();
 			
 			try {
 				forward = action.execute(request, response);
@@ -65,12 +130,24 @@ public class BoardFrontController extends HttpServlet
 		{
 			forward = new ActionForward();
 
-			if (command.equals("/boardWrite.bo"))
+			if (command.equals("/BoardWrite.bo"))
 			{
-				System.out.println("C : /boardWrite.bo 호출");
+				System.out.println("C : /BoardWrite.bo 호출");
 				
 				forward.setPath("./contents/boardWrite.jsp");
 			}			
+			else if (command.equals("/BoardDeleteConfirm.bo"))
+			{
+				System.out.println("C : /BoardDeleteConfirm.bo 호출");
+				
+				forward.setPath("./contents/boardDelete.jsp");
+			}
+			else if (command.equals("/BoardReWrite.bo"))
+			{
+				System.out.println("C : /BoardReWrite.bo 호출");
+				
+				forward.setPath("./contents/boardReWrite.jsp");
+			}
 
 			forward.setRedirect(false);
 		}

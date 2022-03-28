@@ -205,7 +205,7 @@ body.modern header .pi {
 [data-layout=_r] > div, [data-layout=_r] > article, [data-layout=_r] > aside {
   padding: 0 1rem 1rem 1rem;
 }
-[data-layout=_r] img {
+[data-layout=_r] img:not(.reImg) {
   width: 100%;
   height: auto;
 }

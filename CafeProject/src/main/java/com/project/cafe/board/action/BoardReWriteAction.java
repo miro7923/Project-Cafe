@@ -8,37 +8,38 @@ import com.project.cafe.action.ActionForward;
 import com.project.cafe.board.db.BoardDAO;
 import com.project.cafe.board.db.BoardDTO;
 
-public class BoardWriteAction implements Action 
+public class BoardReWriteAction implements Action 
 {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception 
 	{
-		System.out.println("M : BoardWriteAction - execute() 호출");
+		System.out.println("M : BoardReWriteAction - execute() 호출");
 		
 		// 한글처리
 		request.setCharacterEncoding("UTF-8");
 		
-		// 파라메터를 DTO에 저장
+		// 파라메터 저장
 		BoardDTO dto = new BoardDTO();
 		dto.setContent(request.getParameter("content"));
 		dto.setId(request.getParameter("id"));
+		dto.setIp(request.getRemoteAddr());
+		dto.setNum(Integer.parseInt(request.getParameter("num")));
+		dto.setRe_lev(Integer.parseInt(request.getParameter("re_lev")));
+		dto.setRe_ref(Integer.parseInt(request.getParameter("re_ref")));
+		dto.setRe_seq(Integer.parseInt(request.getParameter("re_seq")));
+		dto.setReadcount(0);
 		dto.setTitle(request.getParameter("title"));
 		
-		// 사용자 ip주소 저장
-		dto.setIp(request.getRemoteAddr());
-		System.out.println("M : "+dto);
-		
-		// DB에 DTO 보내서 저장
+		// DB 연결해서 글 저장
 		BoardDAO dao = new BoardDAO();
-		dao.insertPost(dto);
+		dao.reWritePost(dto);
 		
-		// 완료되면 글 목록 페이지로 이동
+		// 게시글 목록으로 이동
 		ActionForward forward = new ActionForward();
 		forward.setPath("./BoardList.bo");
 		forward.setRedirect(true);
 		
-		System.out.println("M : 글쓰기 완료. 페이지정보 리턴");
-		
 		return forward;
 	}
+
 }
