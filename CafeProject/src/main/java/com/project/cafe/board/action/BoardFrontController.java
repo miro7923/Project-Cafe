@@ -126,6 +126,19 @@ public class BoardFrontController extends HttpServlet
 				e.printStackTrace();
 			}
 		}
+		else if (command.equals("/GetFeed.bo"))
+		{
+			System.out.println("C : /GetFeed.bo 호출");
+			
+			action = new GetFeed();
+			
+			try {
+				forward = action.execute(request, response);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		else 
 		{
 			forward = new ActionForward();

@@ -1,26 +1,24 @@
 package com.project.cafe.board.action;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import com.project.cafe.action.Action;
+import com.project.cafe.action.ActionForward;
 import com.project.cafe.board.db.BoardDAO;
 import com.project.cafe.board.db.BoardDTO;
 
-@WebServlet("/GetFeed.bo")
-public class GetFeed extends HttpServlet 
+public class GetFeed implements Action 
 {
-	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	@Override
+	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception 
 	{
-		System.out.println("ajax 시작 - GetFeed");
+		System.out.println("ajax 시작_GetFeed - execute() 호출");
 		
 		BoardDAO dao = new BoardDAO();
 		ArrayList<BoardDTO> list = dao.getPosts
@@ -31,6 +29,7 @@ public class GetFeed extends HttpServlet
 		for (int i = 0; i < list.size(); i++)
 		{
 			JSONObject feed = new JSONObject();
+			feed.put("num", list.get(i).getNum());
 			feed.put("title", list.get(i).getTitle());
 			feed.put("content", list.get(i).getContent());
 			
@@ -42,17 +41,8 @@ public class GetFeed extends HttpServlet
 		response.setCharacterEncoding("UTF-8");
 		// json 데이터 넘김
 		response.getWriter().print(feedList.toJSONString());
-	}
-	
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{
-		doProcess(request, response);
-	}
-
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{
-		doProcess(request, response);
+		response.getWriter().close();
+		
+		return null;
 	}
 }

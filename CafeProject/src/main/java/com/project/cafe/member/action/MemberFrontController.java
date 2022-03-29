@@ -91,6 +91,32 @@ public class MemberFrontController extends HttpServlet
 				e.printStackTrace();
 			}
 		}
+		else if (command.equals("/IdCheck.me"))
+		{
+			System.out.println("C : /IdCheck.me 호출");
+			
+			action = new IdCheck();
+			
+			try {
+				forward = action.execute(req, resp);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if (command.equals("/LoginCheck.me"))
+		{
+			System.out.println("C : /LoginCheck.me 호출");
+			
+			action = new LoginCheck();
+			
+			try {
+				forward = action.execute(req, resp);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		else
 		{
 			forward = new ActionForward();

@@ -400,7 +400,7 @@ public class BoardDAO
 		try {
 			con = getCon();
 			
-			sql = "select title, content from cafe_board order by num desc limit ?";
+			sql = "select * from cafe_board order by num desc limit ?";
 			pstmt = con.prepareStatement(sql);
 			
 			pstmt.setInt(1, cnt);
@@ -410,6 +410,8 @@ public class BoardDAO
 			while (rs.next())
 			{
 				BoardDTO dto = new BoardDTO();
+				
+				dto.setNum(rs.getInt("num"));
 				dto.setTitle(rs.getString("title"));
 				
 				// 문자열 일부만 저장
@@ -417,7 +419,10 @@ public class BoardDAO
 				if (len > content.length())
 					content = content.substring(0, content.length() - 1);
 				else
+				{
 					content = content.substring(0, len);
+					content = content.concat("...");
+				}
 				
 				dto.setContent(content);
 				
@@ -428,6 +433,9 @@ public class BoardDAO
 		}
 		catch (Exception e) {
 			e.printStackTrace();
+		}
+		finally {
+			closeDB();
 		}
 		
 		return list;
