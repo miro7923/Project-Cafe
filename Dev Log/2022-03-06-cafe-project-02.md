@@ -52,7 +52,7 @@ CREATE TABLE `cafe_members` (
 * birth : 회원의 생년월일
 * age : 회원 나이
 * gender : 회원 성별
-* postalcode : 우편번호
+* postalcode : 우편번호 
 * address : 회원의 거주지 주소
 * phone : 회원 휴대폰 번호
 * email : 회원 이메일 주소
