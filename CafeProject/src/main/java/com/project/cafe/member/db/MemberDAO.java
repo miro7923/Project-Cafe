@@ -54,8 +54,8 @@ public class MemberDAO
 			con = getCon();
 			
 			// 3. sql 작성 & pstmt 연결
-			sql = "insert into cafe_members(id, pass, name, birth, age, gender, address, phone, email, regdate) "
-					+ "values(?,?,?,?,?,?,?,?,?,?)";
+			sql = "insert into cafe_members(id, pass, name, birth, age, gender, address, "
+					+ "phone, email, regdate, postalcode) values(?,?,?,?,?,?,?,?,?,?,?)";
 			
 			pstmt = con.prepareStatement(sql);
 			
@@ -69,18 +69,17 @@ public class MemberDAO
 			pstmt.setString(8, dto.getPhone());
 			pstmt.setString(9, dto.getEmail());
 			pstmt.setTimestamp(10, dto.getRegdate());
+			pstmt.setInt(11, dto.getPostalcode());
 			
 			// 4. sql 실행
 			pstmt.executeUpdate();
 			
 			System.out.println("DAO : 회원가입 완료");
 		} 
-		catch (Exception e) 
-		{
+		catch (Exception e) {
 			e.printStackTrace();
 		}
-		finally 
-		{
+		finally {
 			CloseDB();
 		}
 		
@@ -111,12 +110,10 @@ public class MemberDAO
 			if (rs.next()) return true;
 			else return false;
 		} 
-		catch (Exception e) 
-		{
+		catch (Exception e) {
 			e.printStackTrace();
 		}
-		finally 
-		{
+		finally {
 			CloseDB();
 		}
 		

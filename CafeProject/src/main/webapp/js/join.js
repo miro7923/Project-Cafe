@@ -8,6 +8,7 @@ var $passConfirm = false;
 var $name = false;
 var $birth = false;
 var $gender = false;
+var $postalCode = false;
 var $city = false;
 var $phone = false;
 var $email = false;
@@ -23,7 +24,7 @@ $(document).ready(function()
 	birthCheck();
 	emailCheck();
 	getToken();
-	checkValidateNum();
+	checkValidateNum();	
 });
 
 // 휴대폰 번호 필드 1, 2번 칸에서 지정된 숫자만큼 입력하면 다음 칸으로 커서 넘기는 함수
@@ -233,13 +234,31 @@ function genderCheck()
 	}
 }
 
+function postalCodeCheck()
+{
+	console.log('postalCode 확인함수 호출');
+	if ($('#postalcode').val().length <= 0)
+	{
+		$postalCode = false;
+		$('#postalCodeMsg').text('우편번호를 입력하세요!');
+		$('#postalCodeMsg').css('color', 'red');
+		$('#postalcode').focus();
+	}
+	else
+	{
+		$postalCode = true;
+		$('#postalCodeMsg').text('');
+	}
+}
+
 // 도시 선택 여부 확인하는 함수
 function cityCheck()
 {
-	if ('0' == $('[name=city] > option:selected').val())
+	if ($('#roadAddress').val().length <= 0 || $('#detailAddress').val().length <= 0)
 	{
 		$city = false;
-		$('#cityMsg').text("거주 중인 도시를 선택하세요!");
+		$('#detailAddress').focus();
+		$('#cityMsg').text("주소를 입력하세요!");
 		$("#cityMsg").css("color", "red");
 	}	
 	else 
@@ -328,12 +347,16 @@ function finalCheck()
 	genderCheck();
 	if (!$gender)
 		return false;
-
+		
+	postalCodeCheck();
+	if (!$postalCode)
+		return false;
+		
 	cityCheck();
 	if (!$city)
 		return false;
 	
-	phoneCheck();
+	/*phoneCheck();
 	if (!$phone)
 	{
 		join.phone1.focus();
@@ -344,7 +367,7 @@ function finalCheck()
 	{
 		join.validateNum.focus();
 		return false;
-	}
+	}*/
 	
 	if (!$email)
 	{

@@ -1,5 +1,6 @@
 package com.project.cafe.member.action;
 
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -37,7 +38,6 @@ public class MemberJoinAction implements Action
 		dto.setId(request.getParameter("id"));
 		dto.setPass(request.getParameter("pass"));
 		dto.setName(request.getParameter("name"));
-		dto.setAddress(request.getParameter("city"));
 		dto.setBirth(Date.valueOf(request.getParameter("birth")));
 		dto.setEmail(request.getParameter("email"));
 		dto.setGender(request.getParameter("gender"));
@@ -45,6 +45,14 @@ public class MemberJoinAction implements Action
 		// 입력받은 생년월일로 나이 계산
 		int age = getAge(request.getParameter("birth"));
 		dto.setAge(age);
+		
+		// 우편번호 저장
+		dto.setPostalcode(Integer.parseInt(request.getParameter("postalcode")));
+		
+		// 주소 필드 합친 후 저장
+		String roadAddress = request.getParameter("roadAddress");
+		String detailAddress = request.getParameter("detailAddress");
+		dto.setAddress(roadAddress + " " + detailAddress);
 		
 		// 폰번호 3개 필드 합친 후 저장
 		StringBuilder sb = new StringBuilder();
@@ -67,11 +75,16 @@ public class MemberJoinAction implements Action
 		
 		System.out.println("M : 회원가입 완료");
 		
-		// 페이지 이동 (로그인 페이지로 - ./login.me)
-		ActionForward forward = new ActionForward();
-		forward.setPath("./login.me");
-		forward.setRedirect(true); // Action 페이지를 노출하지 않고 가상 주소를 보여줘야 하니까 true로 설정해서 주소줄에 표시되는 주소를 바꾼다.
+		// 페이지 이동 (로그인 페이지로 - ./login.me)		
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.print("<script>");
+		out.print("alert('회원가입이 완료되었습니다!');");
+		out.print("location.href='./login.me';");
+		out.print("</script>");
 		
-		return forward;
+		out.close();
+		
+		return null;
 	}
 }

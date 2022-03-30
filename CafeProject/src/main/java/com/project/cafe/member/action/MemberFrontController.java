@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.project.cafe.action.Action;
 import com.project.cafe.action.ActionForward;
+import com.project.cafe.api.sms.ValidatePhone;
 
 public class MemberFrontController extends HttpServlet
 {
@@ -109,6 +110,19 @@ public class MemberFrontController extends HttpServlet
 			System.out.println("C : /LoginCheck.me 호출");
 			
 			action = new LoginCheck();
+			
+			try {
+				forward = action.execute(req, resp);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if (command.equals("/validatePhone.me"))
+		{
+			System.out.println("C : /validatePhone.me 호출");
+			
+			action = new ValidatePhone();
 			
 			try {
 				forward = action.execute(req, resp);

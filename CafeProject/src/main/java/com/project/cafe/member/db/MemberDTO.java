@@ -12,6 +12,7 @@ public class MemberDTO
 	private Date birth;
 	private int age;
 	private String gender;
+	private int postalcode;
 	private String address;
 	private String phone;
 	private String email;
@@ -33,6 +34,8 @@ public class MemberDTO
 	public void setGender(String gender) {this.gender = gender;}
 	public String getAddress() {return address;}
 	public void setAddress(String address) {this.address = address;}
+	public int getPostalcode() {return postalcode;}
+	public void setPostalcode(int postalcode) {this.postalcode = postalcode;}
 	public String getPhone() {return phone;}
 	public void setPhone(String phone) {this.phone = phone;}
 	public String getEmail() {return email;}

@@ -50,7 +50,7 @@ START MODULE AREA 4: Article Block 1
     <div data-layout="al16 ec8" class="MOD_ARTICLEBLOCKS1_Cont">
     <h2>최신글</h2>
       <a href="" class="MOD_ARTICLEBLOCKS1_BlockLarge" id="mainHref1">
-        <div style="background-image:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/96252/aperitif-large-object1-luca-bravo.jpg)" class="MOD_ARTICLEBLOCKS1_Img" role="img" aria-label="alt text"></div>
+        <!-- <div style="background-image:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/96252/aperitif-large-object1-luca-bravo.jpg)" class="MOD_ARTICLEBLOCKS1_Img" role="img" aria-label="alt text"></div> -->
         <div class="MOD_ARTICLEBLOCKS1_Txt">
           <h3 class="MOD_ARTICLEBLOCKS1_Title" id="mainTitle1">Article Title</h3>
           <p class="MOD_ARTICLEBLOCKS1_Category" id="mainContent1">Category</p>
@@ -59,7 +59,7 @@ START MODULE AREA 4: Article Block 1
     </div>
     <div data-layout="al16 ch8 ec4" class="MOD_ARTICLEBLOCKS1_Cont">
       <a href="" class="MOD_ARTICLEBLOCKS1_BlockSmall" id="mainHref2">
-        <div style="background-image:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/96252/aperitif-large-object1-luca-bravo.jpg)" class="MOD_ARTICLEBLOCKS1_Img" role="img" aria-label="alt text"></div>
+        <!-- <div style="background-image:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/96252/aperitif-large-object1-luca-bravo.jpg)" class="MOD_ARTICLEBLOCKS1_Img" role="img" aria-label="alt text"></div> -->
 
         <div class="MOD_ARTICLEBLOCKS1_Txt">
           <h3 class="MOD_ARTICLEBLOCKS1_Title" id="mainTitle2">Article Title</h3>
@@ -69,7 +69,7 @@ START MODULE AREA 4: Article Block 1
     </div>
     <div data-layout="al16 ch8 ec4" class="MOD_ARTICLEBLOCKS1_Cont">
       <a href="#" class="MOD_ARTICLEBLOCKS1_BlockSmall" id="mainHref3">
-        <div style="background-image:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/96252/aperitif-large-object1-luca-bravo.jpg)" class="MOD_ARTICLEBLOCKS1_Img" role="img" aria-label="alt text"></div>
+        <!-- <div style="background-image:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/96252/aperitif-large-object1-luca-bravo.jpg)" class="MOD_ARTICLEBLOCKS1_Img" role="img" aria-label="alt text"></div> -->
 
         <div class="MOD_ARTICLEBLOCKS1_Txt">
           <h3 class="MOD_ARTICLEBLOCKS1_Title" id="mainTitle3">Article Title</h3>

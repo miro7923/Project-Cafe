@@ -1,39 +1,28 @@
 package com.project.cafe.api.sms;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/validatePhone.me")
-public class ValidatePhone extends HttpServlet 
+import com.project.cafe.action.Action;
+import com.project.cafe.action.ActionForward;
+
+public class ValidatePhone implements Action 
 {
-	protected void doProcess(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
+	@Override
+	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception 
 	{
-		resp.setContentType("text/html; charset=utf-8");
+		response.setContentType("text/html; charset=utf-8");
 		
 		SmsService smsService = new SmsService();
-		PrintWriter out = resp.getWriter();
+		PrintWriter out = response.getWriter();
 		
-		int validateNum = smsService.sendSms(req.getParameter("phone"));
+		int validateNum = smsService.sendSms(request.getParameter("phone"));
 		out.print(validateNum);
 		
 		out.close();
-	}
-	
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
-	{
-		doProcess(req, resp);
-	}
-
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
-	{
-		doProcess(req, resp);
+		
+		return null;
 	}
 }

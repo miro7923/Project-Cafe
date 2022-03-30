@@ -13,7 +13,7 @@ import com.project.cafe.action.ActionForward;
 
 public class BoardFrontController extends HttpServlet
 {
-	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	public void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		// 1. 전달되는 가상주소 계산
 		// 매핑된(.bo로 끝나는) 주소를 받아옴
@@ -139,6 +139,32 @@ public class BoardFrontController extends HttpServlet
 				e.printStackTrace();
 			}
 		}
+		else if (command.equals("/SendMailAction.bo"))
+		{
+			System.out.println("C : /SendMailAction.bo 호출");
+			
+			action = new SendMailAction();
+			
+			try {
+				forward = action.execute(request, response);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if (command.equals("/CommentList.bo"))
+		{
+			System.out.println("C : /CommentList.co 호출");
+			
+			action = new CommentListAction();
+			
+			try {
+				forward = action.execute(request, response);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		else 
 		{
 			forward = new ActionForward();
@@ -160,6 +186,12 @@ public class BoardFrontController extends HttpServlet
 				System.out.println("C : /BoardReWrite.bo 호출");
 				
 				forward.setPath("./contents/boardReWrite.jsp");
+			}
+			else if (command.equals("/Contact.bo"))
+			{
+				System.out.println("C : ./Contact.bo 호출");
+				
+				forward.setPath("./contents/contactUs.jsp");
 			}
 
 			forward.setRedirect(false);
