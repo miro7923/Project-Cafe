@@ -63,7 +63,15 @@ START MODULE AREA 3: Sub Navigation 1
 			</tr>
 			<tr>
 			  <td colspan="2">첨부파일</td>
-			  <td colspan="3"><%=dto.getFile() %></td>
+			  <td colspan="3">
+			  <!-- 첨부파일이 있을 때에만 하이퍼링크 연결 -->
+			  <%if (dto.getFile() == null || dto.getFile().equals("없음")) { %>
+			    <%=dto.getFile() %>
+			  <%}
+			    else {%>
+			    <a href="./BoardFileDownloadAction.bo?file_name=<%=dto.getFile() %>"><%=dto.getFile() %></a>
+			    <%} %>
+			  </td>
 			</tr>
 		</tbody>
 		</table><br>

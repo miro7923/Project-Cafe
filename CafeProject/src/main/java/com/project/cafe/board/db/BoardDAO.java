@@ -81,7 +81,11 @@ public class BoardDAO
 			pstmt.setInt(7, 0); // 답글의 레벨. 처음엔 들여쓰기 없음
 			pstmt.setInt(8, 0); // 답글의 순서. 처음엔 가장 최상단
 			pstmt.setString(9, dto.getIp());
-			pstmt.setString(10, dto.getFile());
+			
+			if (dto.getFile() == null)
+				pstmt.setString(10, "없음");
+			else 
+				pstmt.setString(10, dto.getFile());
 			
 			// 4. sql 실행
 			pstmt.executeUpdate();
@@ -414,11 +418,9 @@ public class BoardDAO
 				dto.setNum(rs.getInt("num"));
 				dto.setTitle(rs.getString("title"));
 				
-				// 문자열 일부만 저장
+				// 문자열이 정해진 길이보다 길면 일부만 저장
 				String content = rs.getString("content");
-				if (len > content.length())
-					content = content.substring(0, content.length() - 1);
-				else
+				if (len < content.length())
 				{
 					content = content.substring(0, len);
 					content = content.concat("...");

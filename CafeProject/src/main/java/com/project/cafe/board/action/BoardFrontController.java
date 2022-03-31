@@ -165,6 +165,19 @@ public class BoardFrontController extends HttpServlet
 				e.printStackTrace();
 			}
 		}
+		else if (command.equals("/BoardFileDownloadAction.bo"))
+		{
+			System.out.println("C : /BoardFileDownloadAction.bo 호출");
+			
+			action = new BoardFileDownloadAction();
+			
+			try {
+				forward = action.execute(request, response);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		else 
 		{
 			forward = new ActionForward();
