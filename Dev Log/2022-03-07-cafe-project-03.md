@@ -48,7 +48,7 @@
     auth = "container" 
     type = "javax.sql.DataSource" 
     driverClassName = "com.mysql.cj.jdbc.Driver" 
-    url = "jdbc:mysql://localhost:3306/jspdb" 
+    url = "jdbc:mysql://localhost:3306/cafedb" 
     username = "root"
     password = "1234"
   />
