@@ -1,39 +1,28 @@
----
-title: 프로젝트) Cafe(웹 사이트) 만들기 17 - 메인 화면에서 최신글 미리보기 기능 추가
-toc: true
-toc_sticky: true
-toc_label: 목차
-published: true
-categories:
-    - Project Log
-tags:
-    - Project
-    - Cafe
-    - Log
----
-# 개발환경
+# JAVA Servlet 프로젝트) Cafe(웹 사이트) 만들기 17 - 메인 화면에서 최신글 미리보기 기능 추가
+
+## 개발환경
 * MacBook Air (M1, 2020)
 * OpenJDK 8
 * Eclipse 2021-12
 * tomcat 8.5
 * MySQL Workbench 8.0.19<br><br><br>
 
-# 시작
+## 시작
 * 2022.3.4 ~ <br><br><br>
 
-# 주제
+## 주제
 * 웹 백엔드 수업 중 중간 과제로 개인 프로젝트를 진행하게 되었다.
 * 회원가입/로그인/탈퇴 등 기본적인 회원관리 시스템을 가진 웹 사이트를 만드는 것이다. 주어진 기한은 `한 달`
 * 나는 `다음 카페`를 소규모로 만들어 보기로 했다. 평소 자주 이용하기도 했고 과제의 평가 기준에서 요구하는 기능들을 다 담고 있기도 했기 때문에 이번 기회에 구현해 보면 그동안 배운 것들을 활용하기에 좋을 거 같았다.
 * 평가 기준에 사이트의 디자인 구현(HTML/CSS 등 프론트엔드)은 포함되지 않기 때문에 본인이 쓰고 싶은 HTML/CSS 템플릿을 구한 뒤 회원 관리 기능을 구현하면 된다.<br><br><br>
 
-# 진행상황
+## 진행상황
 * 원래는 파일 업로드 기능을 만들려고 했으나 수업 진도가 생각보다 늦어져서 다른 기능을 먼저 추가하기로 했다.
 * 오늘은 `ajax`를 이용해 비동기 방식으로 메인 페이지에서 최신글 몇 개를 미리 볼 수 있는 기능을 만들었다.
 
-<p align="center"><img src="../../assets/images/newFeeds.png"></p>
+<p align="center"><img src="https://miro7923.github.io/assets/images/newFeeds.png"></p>
 
-## main.jsp
+### main.jsp
 
 ```jsp
 <!-- Start Head -->
@@ -80,7 +69,7 @@ tags:
 * `Article Title`과 `Category` 부분에 각각 글 제목과 내용 일부를 출력할 것이다.
 * 직접 만든 것은 아니고 다운 받은 템플릿을 약간 변형해서 만들었다.
 
-## main.js
+### main.js
 
 ```javascript
 $(document).ready(function()
@@ -128,7 +117,7 @@ function getFeeds()
 * 각 게시물마다 다른 글번호를 가진 페이지로 연결되어야 하기 때문에 게시글 하나를 불러올 때마다 해당 게시글의 `a` 태그의 `href`를 바꿔주었다.
 * 최신글 3개만 보여주기 때문에 페이지 번호는 1번으로 고정한다.
 
-## BoardFrontController.java
+### BoardFrontController.java
 
 ```java
 package com.project.cafe.board.action;
@@ -178,7 +167,7 @@ public class BoardFrontController extends HttpServlet
 
 * `컨트롤러`에서 `DB`에 접속해서 작업을 수행할 서블릿과 연결한다.
 
-## GetFeed.java
+### GetFeed.java
 
 ```java
 package com.project.cafe.board.action;
@@ -234,7 +223,7 @@ public class GetFeed implements Action
 * 서블릿으로 연결해서 게시글들을 가져온다.
 * 데이터는 `json`에 담아서 보낸다.
 
-## BoardDAO - getPosts(cnt, len)
+### BoardDAO - getPosts(cnt, len)
 
 ```java
 public ArrayList<BoardDTO> getPosts(int cnt, int len)
@@ -287,5 +276,5 @@ public ArrayList<BoardDTO> getPosts(int cnt, int len)
 * 네이버 블로그 메인 페이지의 `html` 소스를 보니까 각 포스트별 미리보기 창에서 텍스트 자체는 일정 글자수 만큼만 출력하고 이상은 ... 이 붙은 형태로 되어 있어서 이렇게 구현해 보았다.
 * 일단 구현한 후 학원 선생님한테 여쭤보니까 이런 방식으로 구현하면 된다고 하셔서 이대로 고정하기로 했다. 😄<br><br><br>
 
-# 마감까지 
+## 마감까지 
 * `D-7`
