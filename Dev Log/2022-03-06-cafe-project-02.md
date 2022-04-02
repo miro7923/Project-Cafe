@@ -1,4 +1,4 @@
-# 프로젝트) Cafe(웹 사이트) 만들기 2 - DB 테이블 만들기
+# JAVA Servlet 프로젝트) Cafe(웹 사이트) 만들기 2 - DB 테이블 만들기
 
 ## 개발환경
 * OpenJDK 8
