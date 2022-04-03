@@ -5,7 +5,6 @@
 
 <!-- Start Head -->
   <jsp:include page="../inc/top.jsp"></jsp:include>
-  <script src="${pageContext.request.contextPath }/js/boardWrite.js"></script>
 <!-- End Head -->
 
 <body class="modern">
@@ -41,6 +40,9 @@ START MODULE AREA 3: Sub Navigation 1
           <textarea id="MOD_TEXTFORM_MsgField" name="content"></textarea>
         </div>
         <div class="formRow">
+          <label for="MOD_TEXTFORM_NameField">이미지 등록 </label><input type="file" name="image" id="image" oninput="formatCheck();">
+        </div>
+        <div class="formRow">
           <label for="MOD_TEXTFORM_NameField">파일 등록 </label><input type="file" name="file" id="file">
         </div>
         <button type="submit" class="btn">글 등록</button>
@@ -61,6 +63,7 @@ END MODULE AREA 5: Footer 2
 -->
 
 <script src="${pageContext.request.contextPath }/js/index.js"></script>
+<script src="${pageContext.request.contextPath }/js/boardWrite.js?testNm=3"></script>
 </body>
 
 </html>

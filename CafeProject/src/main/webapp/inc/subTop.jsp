@@ -15,7 +15,7 @@ START MODULE AREA 2: Menu 1
       </svg>
       <ul class="AP_Menu_List">
         <li>
-          <a href="./BoardList.bo" data-theme="_bgp">최신글 보기</a>
+          <a href="./BoardList.bo" data-theme="_bgp">자유게시판</a>
         </li>
 <!--
         <li>
@@ -33,11 +33,11 @@ START MODULE AREA 2: Menu 1
           </ul>
         </li>
 -->
-        <li>
+        <!-- <li>
           <a href="#" data-theme="_bgp">인기글 보기</a>
-        </li>
+        </li> -->
         <li>
-          <a href="#" data-theme="_bgp">이미지 보기</a>
+          <a href="#" data-theme="_bgp">Contact Us</a>
         </li>
 <!--
         <li>

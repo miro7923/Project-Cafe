@@ -6,7 +6,6 @@
 
 <!-- Start Head -->
   <jsp:include page="../inc/top.jsp"></jsp:include>
-  <script src="${pageContext.request.contextPath }/js/boardWrite.js"></script>
 <!-- End Head -->
 
 <body class="modern">
@@ -66,6 +65,7 @@ END MODULE AREA 5: Footer 2
 -->
 
 <script src="${pageContext.request.contextPath }/js/index.js"></script>
+<script src="${pageContext.request.contextPath }/js/boardWrite.js?testNm=3"></script>
 </body>
 
 </html>

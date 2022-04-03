@@ -152,11 +152,11 @@ public class BoardFrontController extends HttpServlet
 				e.printStackTrace();
 			}
 		}
-		else if (command.equals("/CommentList.bo"))
+		else if (command.equals("/BoardFileDownloadAction.bo"))
 		{
-			System.out.println("C : /CommentList.co 호출");
+			System.out.println("C : /BoardFileDownloadAction.bo 호출");
 			
-			action = new CommentListAction();
+			action = new BoardFileDownloadAction();
 			
 			try {
 				forward = action.execute(request, response);
@@ -165,11 +165,24 @@ public class BoardFrontController extends HttpServlet
 				e.printStackTrace();
 			}
 		}
-		else if (command.equals("/BoardFileDownloadAction.bo"))
+		else if (command.equals("/BoardImgAction.bo"))
 		{
-			System.out.println("C : /BoardFileDownloadAction.bo 호출");
+			System.out.println("C : /BoardImgAction.bo 호출");
 			
-			action = new BoardFileDownloadAction();
+			action = new BoardImgAction();
+			
+			try {
+				forward = action.execute(request, response);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if (command.equals("/CommentWriteAction.bo"))
+		{
+			System.out.println("C : /CommentWriteAction.bo 호출");
+			
+			action = new CommentWriteAction();
 			
 			try {
 				forward = action.execute(request, response);
@@ -187,12 +200,6 @@ public class BoardFrontController extends HttpServlet
 				System.out.println("C : /BoardWrite.bo 호출");
 				
 				forward.setPath("./contents/boardWrite.jsp");
-			}			
-			else if (command.equals("/BoardDeleteConfirm.bo"))
-			{
-				System.out.println("C : /BoardDeleteConfirm.bo 호출");
-				
-				forward.setPath("./contents/boardDelete.jsp");
 			}
 			else if (command.equals("/BoardReWrite.bo"))
 			{

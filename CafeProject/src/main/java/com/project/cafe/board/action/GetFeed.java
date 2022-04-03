@@ -32,6 +32,7 @@ public class GetFeed implements Action
 			feed.put("num", list.get(i).getNum());
 			feed.put("title", list.get(i).getTitle());
 			feed.put("content", list.get(i).getContent());
+			feed.put("image", list.get(i).getImage());
 			
 			feedList.add(feed);
 		}

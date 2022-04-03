@@ -30,6 +30,13 @@ function getFeeds()
 					var hrefId = '#mainHref';
 					hrefId += (i + 1);
 					$(hrefId).attr('href', './BoardContent.bo?num='+data[i].num+'&pageNum=1');
+					
+					var thumbnailId = '#thumbnail';
+					thumbnailId += (i + 1);
+					if (data[i].image == '없음')
+						$(thumbnailId).attr('src', '');
+					else 
+						$(thumbnailId).attr('src', './BoardImgAction.bo?thumbnail='+data[i].image);
 				}
 			}
 		}

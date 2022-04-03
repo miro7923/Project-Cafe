@@ -329,6 +329,10 @@ input {
   font-size: 1em;
   font-family: sans-serif;
 }
+#comment {    
+	display: inline-block;
+    max-width: 90%;
+}
 #writeTitle {
 	width: 1000px;
 }

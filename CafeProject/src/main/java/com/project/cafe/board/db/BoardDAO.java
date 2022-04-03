@@ -67,8 +67,8 @@ public class BoardDAO
 				postNum = rs.getInt(1) + 1;
 			
 			// 3. 데이터 삽입용 sql 작성 & pstmt 설정
-			sql = "insert into cafe_board(num, id, title, content, readcount, re_ref, re_lev, re_seq, date, ip, file) "
-					+ "values(?,?,?,?,?,?,?,?,now(),?,?)";
+			sql = "insert into cafe_board(num, id, title, content, readcount, re_ref, re_lev, re_seq, date, ip, file, image) "
+					+ "values(?,?,?,?,?,?,?,?,now(),?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			
 			// ? 채우기
@@ -86,6 +86,11 @@ public class BoardDAO
 				pstmt.setString(10, "없음");
 			else 
 				pstmt.setString(10, dto.getFile());
+			
+			if (dto.getImage() == null)
+				pstmt.setString(11, "없음");
+			else
+				pstmt.setString(11, dto.getImage());
 			
 			// 4. sql 실행
 			pstmt.executeUpdate();
@@ -237,6 +242,7 @@ public class BoardDAO
 				dto.setRe_seq(rs.getInt("re_seq"));
 				dto.setReadcount(rs.getInt("readcount"));
 				dto.setTitle(rs.getString("title"));
+				dto.setImage(rs.getString("image"));
 				
 				System.out.println("DAO : 글 1개 정보 저장 완료");
 			}
@@ -427,6 +433,7 @@ public class BoardDAO
 				}
 				
 				dto.setContent(content);
+				dto.setImage(rs.getString("image"));
 				
 				list.add(dto);
 			}
@@ -443,4 +450,93 @@ public class BoardDAO
 		return list;
 	}
 	// getPosts(cnt, len)
+	
+	// getComments(num)
+	public ArrayList<CommentDTO> getComments(int num)
+	{
+		ArrayList<CommentDTO> list = new ArrayList<CommentDTO>();
+		
+		try {
+			con = getCon();
+			
+			sql = "select * from cafe_comment where post_num=?";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, num);
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next())
+			{
+				CommentDTO dto = new CommentDTO();
+				
+				dto.setCommentedDate(rs.getDate("commented_date"));
+				dto.setContent(rs.getString("content"));
+				dto.setId(rs.getString("id"));
+				dto.setIp(rs.getString("ip"));
+				dto.setNum(rs.getInt("num"));
+				dto.setPost_num(rs.getInt("post_num"));
+				dto.setRe_lev(rs.getInt("re_lev"));
+				dto.setRe_ref(rs.getInt("re_ref"));
+				dto.setRe_seq(rs.getInt("re_seq"));
+				
+				list.add(dto);
+			}
+			
+			System.out.println("DAO : 댓글 목록 저장 완료");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			closeDB();
+		}
+		
+		return list;
+	}
+	// getComments(num)
+	
+	// insertComment(postNum)
+	public void insertComment(CommentDTO dto)
+	{
+		int lastNum = 0;
+
+		try {
+			con = getCon();
+			
+			// 새 글 번호 찾기
+			sql = "select max(num) from cafe_comment";
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next())
+				lastNum = rs.getInt(1) + 1;
+			
+			// 댓글 삽입
+			sql = "insert into cafe_comment(num, post_num, id, content, commented_date, re_ref, re_lev, re_seq, ip)"
+					+ " values(?,?,?,?,now(),?,?,?,?)";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, lastNum);
+			pstmt.setInt(2, dto.getPost_num());
+			pstmt.setString(3, dto.getId());
+			pstmt.setString(4, dto.getContent());
+			pstmt.setInt(5, lastNum);
+			pstmt.setInt(6, 0);
+			pstmt.setInt(7, 0);
+			pstmt.setString(8, dto.getIp());
+			
+			pstmt.executeUpdate();
+			
+			System.out.println("DAO : 댓글 삽입 완료");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			closeDB();
+		}
+	}
+	// insertComment(postNum)
 }

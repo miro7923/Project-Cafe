@@ -1,5 +1,6 @@
 package com.project.cafe.board.action;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.net.URLEncoder;
 
@@ -32,14 +33,14 @@ public class BoardFileDownloadAction implements Action
 		
 		// 다운로드 할 파일의 전체 경로 계산
 		// 사용자 OS에 따라 연결문자 구분
-		String filePath = null;
+		String filePath = downloadPath + File.separator + fileName;
 		String agent = request.getHeader("User-Agent");
 		System.out.println("agent: "+agent);
 		
-		if (agent.indexOf("Windows") != -1)
-			filePath = downloadPath + "\\" + fileName;
-		else
-			filePath = downloadPath + "/" + fileName;
+//		if (agent.indexOf("Windows") != -1)
+//			filePath = downloadPath + "\\" + fileName;
+//		else
+//			filePath = downloadPath + "/" + fileName;
 		
 		System.out.println("filePath : "+filePath);
 		

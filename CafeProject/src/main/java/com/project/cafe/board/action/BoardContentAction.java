@@ -1,5 +1,7 @@
 package com.project.cafe.board.action;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -7,6 +9,7 @@ import com.project.cafe.action.Action;
 import com.project.cafe.action.ActionForward;
 import com.project.cafe.board.db.BoardDAO;
 import com.project.cafe.board.db.BoardDTO;
+import com.project.cafe.board.db.CommentDTO;
 
 public class BoardContentAction implements Action 
 {
@@ -27,10 +30,12 @@ public class BoardContentAction implements Action
 		
 		// 글 정보 불러오기
 		BoardDTO dto = dao.getPost(num);
+		ArrayList<CommentDTO> coList = dao.getComments(num);
 		
 		// request 영역에 글 정보랑 페이지정보 저장
 		request.setAttribute("dto", dto);
 		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("coList", coList);
 		
 		// 페이지 이동
 		ActionForward forward = new ActionForward();

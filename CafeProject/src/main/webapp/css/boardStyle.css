@@ -36,3 +36,23 @@ table.type09 a {
 #boardPage a {
 	color: black;
 }
+#commentArea {
+	width: 400px;
+    padding: 10px;
+    margin: 10px;
+    vertical-align: top;
+}
+.comments p {
+	font-size: medium;
+}
+.comId {
+	font-weight: bold;
+}
+.comDate {
+	font-size: smaller;
+    color: gray;
+}
+.comContent {
+	padding-bottom: 10px;
+	border-bottom: 1px solid #ccc;
+}

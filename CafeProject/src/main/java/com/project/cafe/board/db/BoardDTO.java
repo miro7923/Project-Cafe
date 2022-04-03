@@ -4,17 +4,18 @@ import java.sql.Date;
 
 public class BoardDTO 
 {
-	int num;
-	String id;
-	String title;
-	String content;
-	int readcount;
-	int re_ref;
-	int re_lev;
-	int re_seq;
-	Date date;
-	String ip;
-	String file;
+	private int num;
+	private String id;
+	private String title;
+	private String content;
+	private int readcount;
+	private int re_ref;
+	private int re_lev;
+	private int re_seq;
+	private Date date;
+	private String ip;
+	private String image;
+	private String file;
 	
 	public int getNum() {
 		return num;
@@ -76,6 +77,12 @@ public class BoardDTO
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
 	public String getFile() {
 		return file;
 	}
@@ -87,6 +94,6 @@ public class BoardDTO
 	public String toString() {
 		return "BoardDTO [num=" + num + ", id=" + id + ", title=" + title + ", content=" + content + ", readcount="
 				+ readcount + ", re_ref=" + re_ref + ", re_lev=" + re_lev + ", re_seq=" + re_seq + ", date=" + date
-				+ ", ip=" + ip + ", file=" + file + "]";
+				+ ", ip=" + ip + ", image=" + image + ", file=" + file + "]";
 	}
 }

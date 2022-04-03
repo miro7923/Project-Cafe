@@ -7,7 +7,6 @@
 
 <!-- Start Head -->
   <jsp:include page="../inc/top.jsp"></jsp:include>
-  <script src="${pageContext.request.contextPath }/js/boardList.js"></script>
 <!-- End Head -->
 
 <body class="modern">
@@ -46,7 +45,7 @@ START MODULE AREA 3: Sub Navigation 1
   <div data-layout="_r">
     <jsp:include page="../inc/leftNav.jsp"></jsp:include>
     <div data-layout="al-o1 de-o2 de10" class="MOD_SUBNAVIGATION1_Page">
-    	<h2>최신글 보기</h2>
+    	<h2>자유게시판</h2>
 	  	<p align="right"><button type="button" class="btn" id="writeBtn" 
 	  		onclick="memberCheck(<%=isLogin%>);">글쓰기</button></p>
         <table class="type09">
@@ -125,6 +124,7 @@ END MODULE AREA 5: Footer 2
 -->
 
 <script src="${pageContext.request.contextPath }/js/index.js"></script>
+<script src="${pageContext.request.contextPath }/js/boardList.js?testNm=3"></script>
 </body>
 
 </html>

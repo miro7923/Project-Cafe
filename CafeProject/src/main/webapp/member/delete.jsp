@@ -4,7 +4,6 @@
 <html lang="en">
 <!-- Start Head -->
   <jsp:include page="../inc/top.jsp"></jsp:include>
-  <script src="${pageContext.request.contextPath}/js/checkPass.js"></script>
 <!-- End Head -->
 
 <body class="modern">
@@ -62,7 +61,8 @@ START MODULE AREA 4: Footer 2
 END MODULE AREA 4: Footer 2
 -->
 
-<script src="./js/index.js"></script>
+<script src="${pageContext.request.contextPath}/js/index.js"></script>
+<script src="${pageContext.request.contextPath}/js/checkPass.js?testNm=3"></script>
 </body>
 
 </html>
