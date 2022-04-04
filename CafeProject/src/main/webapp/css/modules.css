@@ -331,7 +331,7 @@ input {
 }
 #comment {    
 	display: inline-block;
-    max-width: 90%;
+    max-width: 100%;
 }
 #writeTitle {
 	width: 1000px;

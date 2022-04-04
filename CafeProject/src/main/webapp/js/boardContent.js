@@ -25,3 +25,25 @@ function writeComment()
 	else
 		return true;
 }
+
+function showCommentBox(idx)
+{
+	var con = document.getElementById('modify' + idx);
+	var comBlock = document.getElementById('modifyComment' + idx);
+	if (comBlock.style.display == 'none')
+	{
+		comBlock.style.display = 'inline-block';
+		con.innerHTML = '취소';
+	}
+	else 
+	{
+		comBlock.style.display = 'none';
+		con.innerHTML = '수정';
+	}
+}
+
+function confirmDelete(num, postNum, pageNum)
+{
+	if (confirm('정말 삭제 하시겠습니까?'))
+		location.href = './CommentDeleteAction.bo?num='+num+'&post_num='+postNum+'&pageNum='+pageNum;
+}

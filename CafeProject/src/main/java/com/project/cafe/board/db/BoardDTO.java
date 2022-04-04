@@ -16,6 +16,7 @@ public class BoardDTO
 	private String ip;
 	private String image;
 	private String file;
+	private int comment_count;
 	
 	public int getNum() {
 		return num;
@@ -89,11 +90,16 @@ public class BoardDTO
 	public void setFile(String file) {
 		this.file = file;
 	}
-	
+	public int getComment_count() {
+		return comment_count;
+	}
+	public void setComment_count(int comment_count) {
+		this.comment_count = comment_count;
+	}
 	@Override
 	public String toString() {
 		return "BoardDTO [num=" + num + ", id=" + id + ", title=" + title + ", content=" + content + ", readcount="
 				+ readcount + ", re_ref=" + re_ref + ", re_lev=" + re_lev + ", re_seq=" + re_seq + ", date=" + date
-				+ ", ip=" + ip + ", image=" + image + ", file=" + file + "]";
+				+ ", ip=" + ip + ", image=" + image + ", file=" + file + ", comment_count=" + comment_count + "]";
 	}
 }

@@ -30,6 +30,8 @@ public class CommentWriteAction implements Action
 		dto.setIp(request.getRemoteAddr());
 		dto.setPost_num(postNum);
 		
+		System.out.println("M : commentDTO: "+dto);
+		
 		// DB 연결해서 댓글 저장
 		BoardDAO dao = new BoardDAO();
 		dao.insertComment(dto);

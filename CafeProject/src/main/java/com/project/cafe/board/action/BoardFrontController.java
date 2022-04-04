@@ -191,6 +191,32 @@ public class BoardFrontController extends HttpServlet
 				e.printStackTrace();
 			}
 		}
+		else if (command.equals("/CommentModifyAction.bo"))
+		{
+			System.out.println("C : /CommentModifyAction.bo 호출");
+			
+			action = new CommentModifyAction();
+			
+			try {
+				forward = action.execute(request, response);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if (command.equals("/CommentDeleteAction.bo"))
+		{
+			System.out.println("C : /CommentDeleteAction.bo 호출");
+			
+			action = new CommentDeleteAction();
+			
+			try {
+				forward = action.execute(request, response);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		else 
 		{
 			forward = new ActionForward();

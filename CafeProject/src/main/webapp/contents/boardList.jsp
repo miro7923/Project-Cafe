@@ -86,7 +86,7 @@ START MODULE AREA 3: Sub Navigation 1
 		<%
 			}
 		%>
-			  <a href="./BoardContent.bo?num=<%=dto.getNum()%>&pageNum=<%=pageNum%>"><%=dto.getTitle() %></a>
+			  <a href="./BoardContent.bo?num=<%=dto.getNum()%>&pageNum=<%=pageNum%>"><%=dto.getTitle() %> (<%=dto.getComment_count() %>)</a>
 			</td>
 			<td><%=dto.getId() %></td>
 			<td><%=dto.getDate() %></td>

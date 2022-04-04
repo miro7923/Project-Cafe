@@ -67,8 +67,9 @@ public class BoardDAO
 				postNum = rs.getInt(1) + 1;
 			
 			// 3. 데이터 삽입용 sql 작성 & pstmt 설정
-			sql = "insert into cafe_board(num, id, title, content, readcount, re_ref, re_lev, re_seq, date, ip, file, image) "
-					+ "values(?,?,?,?,?,?,?,?,now(),?,?,?)";
+			sql = "insert into cafe_board(num, id, title, content, readcount, re_ref, re_lev, re_seq, date, ip, "
+					+ "file, image, comment_count) "
+					+ "values(?,?,?,?,?,?,?,?,now(),?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			
 			// ? 채우기
@@ -81,6 +82,7 @@ public class BoardDAO
 			pstmt.setInt(7, 0); // 답글의 레벨. 처음엔 들여쓰기 없음
 			pstmt.setInt(8, 0); // 답글의 순서. 처음엔 가장 최상단
 			pstmt.setString(9, dto.getIp());
+			pstmt.setInt(10, 0);
 			
 			if (dto.getFile() == null)
 				pstmt.setString(10, "없음");
@@ -171,6 +173,7 @@ public class BoardDAO
 				dto.setRe_seq(rs.getInt("re_seq"));
 				dto.setReadcount(rs.getInt("readcount"));
 				dto.setTitle(rs.getString("title"));
+				dto.setComment_count(rs.getInt("comment_count"));
 				
 				postList.add(dto);
 			}
@@ -243,6 +246,7 @@ public class BoardDAO
 				dto.setReadcount(rs.getInt("readcount"));
 				dto.setTitle(rs.getString("title"));
 				dto.setImage(rs.getString("image"));
+				dto.setComment_count(rs.getInt("comment_count"));
 				
 				System.out.println("DAO : 글 1개 정보 저장 완료");
 			}
@@ -504,6 +508,16 @@ public class BoardDAO
 		try {
 			con = getCon();
 			
+			// 게시글의 댓글 갯수 증가
+			sql = "update cafe_board set comment_count = comment_count + 1 where num=?";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, dto.getPost_num());
+			
+			pstmt.executeUpdate();
+			
+			System.out.println("DAO : 댓글 갯수 증가 완료");
+			
 			// 새 글 번호 찾기
 			sql = "select max(num) from cafe_comment";
 			pstmt = con.prepareStatement(sql);
@@ -539,4 +553,91 @@ public class BoardDAO
 		}
 	}
 	// insertComment(postNum)
+	
+	// updateComment(dto)
+	public int updateComment(CommentDTO dto)
+	{
+		int ret = -1;
+		
+		try {
+			con = getCon();
+			
+			sql = "select * from cafe_comment where num=?";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, dto.getNum());
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next())
+			{
+				// 댓글이 존재하면 수정
+				sql = "update cafe_comment set content=? where num=?";
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, dto.getContent());
+				pstmt.setInt(2, dto.getNum());
+				
+				ret = pstmt.executeUpdate();
+				
+				System.out.println("DAO : 댓글 수정 완료");
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			closeDB();
+		}
+		
+		return ret;
+	}
+	// updateComment(dto)
+	
+	// deleteComment(num)
+	public int deleteComment(int num)
+	{
+		int ret = -1;
+		
+		try {
+			con = getCon();
+			
+			sql = "select * from cafe_comment where num=?";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, num);
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next())
+			{
+				// 게시글의 댓글 갯수 감소
+				sql = "update cafe_board set comment_count = comment_count - 1 where num=?";
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setInt(1, rs.getInt("post_num"));
+				
+				pstmt.executeUpdate();
+				
+				// 댓글 삭제
+				sql = "delete from cafe_comment where num=?";
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setInt(1, num);
+				
+				ret = pstmt.executeUpdate();
+				
+				System.out.println("DAO : 댓글 삭제 완료");
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			closeDB();
+		}
+		
+		return ret;
+	}
+	// deleteComment(num)
 }

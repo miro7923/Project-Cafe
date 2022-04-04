@@ -33,7 +33,6 @@ START MODULE AREA 3: Sub Navigation 1
 	BoardDTO dto = (BoardDTO)request.getAttribute("dto");
 	String pageNum = (String)request.getAttribute("pageNum");
 	ArrayList<CommentDTO> coList = (ArrayList<CommentDTO>)request.getAttribute("coList");
-	System.out.println("coList size: "+coList.size());
 %>
 <section class="MOD_SUBNAVIGATION1">
   <div data-layout="_r">
@@ -53,7 +52,7 @@ START MODULE AREA 3: Sub Navigation 1
 		<thead>
 		<tr>
 		<th scope="cols"><%=dto.getNum() %></th>
-		<th scope="cols"><%=dto.getTitle() %></th>
+		<th scope="cols"><%=dto.getTitle() %> (<%=dto.getComment_count() %>)</th>
 		<th scope="cols"><%=dto.getId() %></th>
 		<th scope="cols"><%=dto.getDate() %></th>
 		<th scope="cols">조회수 <%=dto.getReadcount() %></th>
@@ -82,36 +81,44 @@ START MODULE AREA 3: Sub Navigation 1
 		</table><br>
 		
 		<!-- 댓글 영역 -->  
-		<form action="./CommentWriteAction.bo?post_num=<%=dto.getNum() %>&pageNum=<%=pageNum %>" method="post" onsubmit="return writeComment();">
-		  <input type="hidden" name="id" value="<%=id%>">
-		  <input type="text" id="comment" name="comment" placeholder="댓글 달기" maxlength="500">
-		  <button type="submit" class="btn" id="commentBtn">입력</button>
-		</form>
-		<br><br>
 		<div class="comments">
 		  <h3>댓글</h3>
 		  <input type="hidden" id="postNum" value="<%=dto.getNum()%>">
 		  <p>
 		  <%if (!coList.isEmpty()) {
-			  for (int i = 0; i < coList.size(); i++) { 
-			    CommentDTO coDto = coList.get(i); %>
+			  for (int i = 0; i < coList.size(); i++) { %>
 			<span class="comId">
-		      <%=coDto.getId() %>&nbsp;		
+		      <%=coList.get(i).getId() %>&nbsp;		
 			</span>
 		    <span class="comDate">
-		      <%=coDto.getCommentedDate() %>&nbsp;
+		      <%=coList.get(i).getCommentedDate() %>&nbsp;
 		    </span>
 		    <span>
-		      수정&nbsp;
+		    <!-- 본인 글 일때만 수정/삭제 가능 -->
+		    <%if (id != null && id.equals(coList.get(i).getId())) { %>
+		      <a href="javascript:void(0);" onclick="showCommentBox(<%=i %>);" id="modify">수정&nbsp;</a>
 		    </span>
 		    <span>
-		      삭제&nbsp;
+		      <a href="javascript:void(0);" onclick="confirmDelete(<%=coList.get(i).getNum()%>, <%=coList.get(i).getPost_num()%>, <%=pageNum%>);">삭제&nbsp;</a>
 		    </span>
+		    <% } %>
 		  </p>
-		  <p class="comContent">
-		    <%=coDto.getContent() %>
-		  </p><br>
+		  <p class="comContent" id="comContent<%=i%>">
+		    <%=coList.get(i).getContent() %>
+		  </p>
+		  <div style="display: none;" id="modifyComment<%=i%>">
+		    <form action="./CommentModifyAction.bo?num=<%=coList.get(i).getNum()%>&post_num=<%=coList.get(i).getPost_num()%>&pageNum=<%=pageNum%>" method="post" onsubmit="return writeComment();">
+		      <input type="hidden" name="id" value="<%=id%>">
+		      <textarea id="comment" name="comment" rows="10" cols="80" maxlength="500"><%=coList.get(i).getContent() %></textarea>
+		      <button type="submit" class="btn" id="commentBtn">입력</button>
+		    </form><br>
+		  </div><br>
 		  <% }} %>
+		<form action="./CommentWriteAction.bo?post_num=<%=dto.getNum() %>&pageNum=<%=pageNum %>" method="post" onsubmit="return writeComment();">
+		  <input type="hidden" name="id" value="<%=id%>">
+		  <textarea id="comment" name="comment" rows="10" placeholder="댓글 달기" maxlength="500"></textarea>
+		  <button type="submit" class="btn" id="commentBtn">입력</button>
+		</form>
 		</div>
 		<!-- 댓글 영역 -->
 		
@@ -145,7 +152,7 @@ END MODULE AREA 5: Footer 2
 -->
 
 <script src="${pageContext.request.contextPath }/js/index.js"></script>
-<script src="${pageContext.request.contextPath }/js/boardContent.js?testNm=3"></script>
+<script src="${pageContext.request.contextPath }/js/boardContent.js?testNm=2"></script>
 </body>
 
 </html>
