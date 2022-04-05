@@ -9,9 +9,6 @@ public class CommentDTO
 	private String id;
 	private String content;
 	private Date commentedDate;
-	private int re_ref;
-	private int re_lev;
-	private int re_seq;
 	private String ip;
 	
 	public int getNum() {
@@ -44,24 +41,6 @@ public class CommentDTO
 	public void setCommentedDate(Date commentedDate) {
 		this.commentedDate = commentedDate;
 	}
-	public int getRe_ref() {
-		return re_ref;
-	}
-	public void setRe_ref(int re_ref) {
-		this.re_ref = re_ref;
-	}
-	public int getRe_lev() {
-		return re_lev;
-	}
-	public void setRe_lev(int re_lev) {
-		this.re_lev = re_lev;
-	}
-	public int getRe_seq() {
-		return re_seq;
-	}
-	public void setRe_seq(int re_seq) {
-		this.re_seq = re_seq;
-	}
 	public String getIp() {
 		return ip;
 	}
@@ -72,7 +51,6 @@ public class CommentDTO
 	@Override
 	public String toString() {
 		return "CommentDTO [num=" + num + ", post_num=" + post_num + ", id=" + id + ", content=" + content
-				+ ", commentedDate=" + commentedDate + ", re_ref=" + re_ref + ", re_lev=" + re_lev + ", re_seq="
-				+ re_seq + ", ip=" + ip + "]";
+				+ ", commentedDate=" + commentedDate + ", ip=" + ip + "]";
 	}
 }

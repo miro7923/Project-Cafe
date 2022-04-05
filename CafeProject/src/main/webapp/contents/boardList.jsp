@@ -32,14 +32,14 @@ START MODULE AREA 3: Sub Navigation 1
 	else isLogin = true;
 	
 	// 글 목록과 페이지 정보 저장
-	int postCnt = (int)request.getAttribute("postCnt");
-	ArrayList<BoardDTO> postList = (ArrayList<BoardDTO>)request.getAttribute("postList");
-	
-	String pageNum = (String)request.getAttribute("pageNum");
-	int pageCnt = (int)request.getAttribute("pageCnt");
-	int pageBlockCnt = (int)request.getAttribute("pageBlockCnt");
-	int startBlock = (int)request.getAttribute("startBlock");
-	int endBlock = (int)request.getAttribute("endBlock");
+    	int postCnt = (int)request.getAttribute("postCnt");
+    	ArrayList<BoardDTO> postList = (ArrayList<BoardDTO>)request.getAttribute("postList");
+    	
+    	String pageNum = (String)request.getAttribute("pageNum");
+    	int pageCnt = (int)request.getAttribute("pageCnt");
+    	int pageBlockCnt = (int)request.getAttribute("pageBlockCnt");
+    	int startBlock = (int)request.getAttribute("startBlock");
+    	int endBlock = (int)request.getAttribute("endBlock");
 %>
 <section class="MOD_SUBNAVIGATION1">
   <div data-layout="_r">
@@ -97,15 +97,15 @@ START MODULE AREA 3: Sub Navigation 1
 		</table><br>
 		<div id="boardPage">
 			<%if (startBlock > pageBlockCnt) { %>
-				<a href="./BoardList.bo?pageNum=<%=startBlock - pageBlockCnt%>">[이전]</a>
+				<a href="./BoardList.bo?flag=n&pageNum=<%=startBlock - pageBlockCnt%>">[이전]</a>
 			<%} %>
 			
 			<%for (int i = startBlock; i <= endBlock; i++) { %>
-				<a href="./BoardList.bo?pageNum=<%=i%>">[<%=i %>]</a>
+				<a href="./BoardList.bo?flag=n&pageNum=<%=i%>">[<%=i %>]</a>
 			<%} %>
 			
 			<%if (endBlock > pageBlockCnt) { %>
-				<a href="./BoardList.bo?pageNum=<%=startBlock + pageBlockCnt%>">[다음]</a>
+				<a href="./BoardList.bo?flag=n&pageNum=<%=startBlock + pageBlockCnt%>">[다음]</a>
 			<%} %>
 		</div>
       </div>

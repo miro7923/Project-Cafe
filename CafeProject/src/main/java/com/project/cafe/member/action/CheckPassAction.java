@@ -36,7 +36,7 @@ public class CheckPassAction implements Action
 		if (1 == result)
 		{
 			// 비번 일치
-			out.println("location.href='./myPage.me';");
+			out.println("location.href='./MemberContentAction.me';");
 		}
 		else 
 		{

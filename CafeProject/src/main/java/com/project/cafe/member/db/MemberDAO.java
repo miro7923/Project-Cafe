@@ -3,6 +3,7 @@ package com.project.cafe.member.db;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -54,8 +55,8 @@ public class MemberDAO
 			con = getCon();
 			
 			// 3. sql 작성 & pstmt 연결
-			sql = "insert into cafe_members(id, pass, name, birth, age, gender, address, "
-					+ "phone, email, regdate, postalcode) values(?,?,?,?,?,?,?,?,?,?,?)";
+			sql = "insert into cafe_members(id, pass, name, birth, age, gender, postalcode, road_address, "
+					+ "detail_address, phone, email, regdate) values(?,?,?,?,?,?,?,?,?,?,?,?)";
 			
 			pstmt = con.prepareStatement(sql);
 			
@@ -65,11 +66,12 @@ public class MemberDAO
 			pstmt.setDate(4, dto.getBirth());
 			pstmt.setInt(5, dto.getAge());
 			pstmt.setString(6, dto.getGender());
-			pstmt.setString(7, dto.getAddress());
-			pstmt.setString(8, dto.getPhone());
-			pstmt.setString(9, dto.getEmail());
-			pstmt.setTimestamp(10, dto.getRegdate());
-			pstmt.setInt(11, dto.getPostalcode());
+			pstmt.setInt(7, dto.getPostalcode());
+			pstmt.setString(8, dto.getRoad_address());
+			pstmt.setString(9, dto.getDetail_address());
+			pstmt.setString(10, dto.getPhone());
+			pstmt.setString(11, dto.getEmail());
+			pstmt.setTimestamp(12, dto.getRegdate());
 			
 			// 4. sql 실행
 			pstmt.executeUpdate();
@@ -201,7 +203,9 @@ public class MemberDAO
 			{
 				dto = new MemberDTO();
 				
-				dto.setAddress(rs.getString("address"));
+				dto.setPostalcode(rs.getInt("postalcode"));
+				dto.setRoad_address(rs.getString("road_address"));
+				dto.setDetail_address(rs.getString("detail_address"));
 				dto.setAge(rs.getInt("age"));
 				dto.setBirth(rs.getDate("birth"));
 				dto.setEmail(rs.getString("email"));
@@ -209,7 +213,6 @@ public class MemberDAO
 				dto.setId(rs.getString("id"));
 				dto.setName(rs.getString("name"));
 				dto.setMemberNum(rs.getInt("member_num"));
-				dto.setPass(rs.getString("pass"));
 				dto.setPhone(rs.getString("phone"));
 				dto.setRegdate(rs.getTimestamp("regdate"));
 				
@@ -248,7 +251,8 @@ public class MemberDAO
 				{
 					// 회원 정보가 있으면
 					// 3. sql 작성 & pstmt 객체 생성
-					sql = "update cafe_members set pass=?, name=?, birth=?, age=?, gender=?, address=?, phone=?, email=? where id=?";
+					sql = "update cafe_members set pass=?, name=?, birth=?, age=?, gender=?, postacode=?,"
+							+ " road_address=?, detail_address=?, phone=?, email=? where id=?";
 					pstmt = con.prepareStatement(sql);
 					
 					// ? 채우기
@@ -257,10 +261,12 @@ public class MemberDAO
 					pstmt.setDate(3, dto.getBirth());
 					pstmt.setInt(4, dto.getAge());
 					pstmt.setString(5, dto.getGender());
-					pstmt.setString(6, dto.getAddress());
-					pstmt.setString(7, dto.getPhone());
-					pstmt.setString(8, dto.getEmail());
-					pstmt.setString(9, dto.getId());
+					pstmt.setInt(6, dto.getPostalcode());
+					pstmt.setString(7, dto.getRoad_address());
+					pstmt.setString(8, dto.getDetail_address());
+					pstmt.setString(9, dto.getPhone());
+					pstmt.setString(10, dto.getEmail());
+					pstmt.setString(11, dto.getId());
 					
 					// 4. sql 실행
 					pstmt.executeUpdate();
@@ -339,4 +345,88 @@ public class MemberDAO
 		return result;
 	}
 	// deleteMember(dto)
+	
+	// getMemberList()
+	public ArrayList<MemberDTO> getMemberList()
+	{
+		ArrayList<MemberDTO> memberList = new ArrayList<MemberDTO>();
+		
+		try {
+			con = getCon();
+			
+			sql = "select * from cafe_members where id != 'admin'";
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next())
+			{
+				MemberDTO dto = new MemberDTO();
+				
+				dto.setRoad_address(rs.getString("road_address"));
+				dto.setDetail_address(rs.getString("detail_address"));
+				dto.setAge(rs.getInt("age"));
+				dto.setBirth(rs.getDate("birth"));
+				dto.setEmail(rs.getString("email"));
+				dto.setGender(rs.getString("gender"));
+				dto.setId(rs.getString("id"));
+				dto.setMemberNum(rs.getInt("member_num"));
+				dto.setName(rs.getString("name"));
+				dto.setPhone(rs.getString("phone"));
+				dto.setPostalcode(rs.getInt("postalcode"));
+				dto.setRegdate(rs.getTimestamp("regdate"));
+				
+				memberList.add(dto);
+			}
+			
+			System.out.println("DAO : 회원 전체 목록 저장 완료");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			CloseDB();
+		}
+		
+		return memberList;
+	}
+	// getMemberList()
+	
+	// deleteMember(id)
+	public int deleteMember(String id)
+	{
+		int ret = -1;
+		
+		try {
+			con = getCon();
+			
+			sql = "select * from cafe_members where id=?";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next())
+			{
+				sql = "delete from cafe_members where id=?";
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, id);
+				
+				ret = pstmt.executeUpdate();
+				
+				System.out.println("DAO : 운영자가 회원정보 삭제 완료");
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			CloseDB();
+		}
+		
+		return ret;
+	}
+	// deleteMember(id)
 }

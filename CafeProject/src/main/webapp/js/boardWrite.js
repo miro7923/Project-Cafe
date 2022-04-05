@@ -51,3 +51,22 @@ function crossBrowsing()
 	else // 그 외 브라우저
 		$('#image').val('');	
 }
+
+function removeImg()
+{
+	$('input[name=imgUploadStatus]').val(false);
+	$('#imgName').text('없음');
+}
+
+function removeFile()
+{
+	$('input[name=fileUploadStatus]').val(false);
+	$('#fileName').text('없음');
+}
+
+function resetVal()
+{
+	alert('resetVal 호출');
+	$('input[name=imgUploadStatus]').val(true);
+	$('input[name=fileUploadStatus]').val(true);
+}

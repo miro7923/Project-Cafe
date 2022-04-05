@@ -49,10 +49,8 @@ public class MemberJoinAction implements Action
 		// 우편번호 저장
 		dto.setPostalcode(Integer.parseInt(request.getParameter("postalcode")));
 		
-		// 주소 필드 합친 후 저장
-		String roadAddress = request.getParameter("roadAddress");
-		String detailAddress = request.getParameter("detailAddress");
-		dto.setAddress(roadAddress + " " + detailAddress);
+		dto.setRoad_address(request.getParameter("roadAddress"));
+		dto.setDetail_address(request.getParameter("detailAddress"));
 		
 		// 폰번호 3개 필드 합친 후 저장
 		StringBuilder sb = new StringBuilder();

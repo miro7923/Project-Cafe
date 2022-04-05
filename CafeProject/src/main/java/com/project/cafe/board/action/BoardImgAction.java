@@ -41,12 +41,10 @@ public class BoardImgAction implements Action
 		// 서버에 업로드 된 파일 위치 계산
 		ServletContext ctx = request.getServletContext();
 		String downloadPath = ctx.getRealPath(savePath);
-		System.out.println("download path: "+downloadPath);
 		
 		// 다운로드 할 이미지의 전체 경로 계산
 		// 사용자 OS에 따라 연결자 구분
 		String imgPath = downloadPath + File.separator + imgName;
-		System.out.println("imgPath: "+imgPath);
 		
 		// 파일 저장 배열
 		byte[] b = new byte[4096];
@@ -56,7 +54,6 @@ public class BoardImgAction implements Action
 		
 		// MIME 타입 정보 얻어오기
 		String mimeType = ctx.getMimeType(imgPath);
-		System.out.println("MIME type: "+mimeType);
 		
 		if (mimeType == null)
 			mimeType = "application/octet-stream";

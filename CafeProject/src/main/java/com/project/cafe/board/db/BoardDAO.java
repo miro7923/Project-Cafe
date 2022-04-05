@@ -94,6 +94,8 @@ public class BoardDAO
 			else
 				pstmt.setString(11, dto.getImage());
 			
+			pstmt.setInt(12, 0);
+			
 			// 4. sql 실행
 			pstmt.executeUpdate();
 			
@@ -191,6 +193,53 @@ public class BoardDAO
 	}
 	// getPostList(startRow, pageSize)
 	
+	// getPostList()
+	public ArrayList<BoardDTO> getPostList()
+	{
+		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
+		
+		try {
+			con = getCon();
+			
+			sql = "select * from cafe_board";
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next())
+			{
+				BoardDTO dto = new BoardDTO();
+				
+				dto.setComment_count(rs.getInt("comment_count"));
+				dto.setContent(rs.getString("content"));
+				dto.setDate(rs.getDate("date"));
+				dto.setFile(rs.getString("file"));
+				dto.setId(rs.getString("id"));
+				dto.setImage(rs.getString("image"));
+				dto.setIp(rs.getString("ip"));
+				dto.setNum(rs.getInt("num"));
+				dto.setRe_lev(rs.getInt("re_lev"));
+				dto.setRe_ref(rs.getInt("re_ref"));
+				dto.setRe_seq(rs.getInt("re_seq"));
+				dto.setReadcount(rs.getInt("readcount"));
+				dto.setTitle(rs.getString("title"));
+				
+				list.add(dto);
+			}
+			
+			System.out.println("DAO : 게시글 목록 저장 완료");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			closeDB();
+		}
+		
+		return list;
+	}
+	// getPostList()
+	
 	// updateReadCount(num)
 	public void updateReadCount(int num)
 	{
@@ -281,12 +330,14 @@ public class BoardDAO
 			if (rs.next())
 			{
 				// update 동작 수행
-				sql = "update cafe_board set title=?, content=? where num=?";
+				sql = "update cafe_board set title=?, content=?, image=?, file=? where num=?";
 				pstmt = con.prepareStatement(sql);
 				
 				pstmt.setString(1, dto.getTitle());
 				pstmt.setString(2, dto.getContent());
-				pstmt.setInt(3, dto.getNum());
+				pstmt.setString(3, dto.getImage());
+				pstmt.setString(4, dto.getFile());
+				pstmt.setInt(5, dto.getNum());
 				
 				ret = pstmt.executeUpdate();
 				
@@ -322,6 +373,15 @@ public class BoardDAO
 			
 			if (rs.next())
 			{
+				// 댓글 삭제
+				sql = "delete from cafe_comment where post_num=?";
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setInt(1, num);
+				
+				pstmt.executeUpdate();
+				
+				// 게시글 본문 삭제
 				sql = "delete from cafe_board where num=?";
 				pstmt = con.prepareStatement(sql);
 				
@@ -376,8 +436,8 @@ public class BoardDAO
 				System.out.println("DAO : 답글 순서 재배치");
 			
 			// 답글 저장 동작 수행
-			sql = "insert into cafe_board(num, id, title, content, readcount, re_ref, re_lev, re_seq, date, ip, file)"
-					+ " values(?,?,?,?,?,?,?,?,now(),?,?)";
+			sql = "insert into cafe_board(num, id, title, content, readcount, re_ref, re_lev, re_seq, date,"
+					+ " ip, file, image, comment_count) values(?,?,?,?,?,?,?,?,now(),?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			
 			pstmt.setInt(1, curNum);
@@ -392,6 +452,8 @@ public class BoardDAO
 			
 			pstmt.setString(9, dto.getIp());
 			pstmt.setString(10, dto.getFile());
+			pstmt.setString(11, dto.getImage());
+			pstmt.setInt(12, 0);
 			
 			pstmt.executeUpdate();
 			
@@ -480,9 +542,6 @@ public class BoardDAO
 				dto.setIp(rs.getString("ip"));
 				dto.setNum(rs.getInt("num"));
 				dto.setPost_num(rs.getInt("post_num"));
-				dto.setRe_lev(rs.getInt("re_lev"));
-				dto.setRe_ref(rs.getInt("re_ref"));
-				dto.setRe_seq(rs.getInt("re_seq"));
 				
 				list.add(dto);
 			}

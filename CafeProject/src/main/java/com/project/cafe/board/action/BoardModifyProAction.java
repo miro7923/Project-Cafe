@@ -20,18 +20,11 @@ public class BoardModifyProAction implements Action
 		// 한글처리
 		request.setCharacterEncoding("UTF-8");
 		
-		// 파라메터 저장
-		int num = Integer.parseInt(request.getParameter("num"));
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-		String pageNum = request.getParameter("pageNum");
-		System.out.println("M : boardModify.jsp에서 전달된 pageNum : "+pageNum);
-		
 		// DB에서 기존 글 정보를 찾은 다음 새 내용으로 수정
-		BoardDTO dto = new BoardDTO();
-		dto.setNum(num);
-		dto.setTitle(title);
-		dto.setContent(content);
+		FileUpload fu = new FileUpload();
+		BoardDTO dto = fu.upload(request);
+		
+		int num = dto.getNum();
 
 		BoardDAO dao = new BoardDAO();
 		int result = dao.modifyPost(dto);
@@ -51,7 +44,7 @@ public class BoardModifyProAction implements Action
 		
 		// 게시글 내용 페이지로 이동
 		out.println("<script>");
-		out.println("location.href='./BoardContent.bo?num="+num+"&pageNum="+pageNum+"';");
+		out.println("location.href='./BoardContent.bo?num="+num+"&pageNum=1';");
 		out.println("</script>");
 		
 		out.close();

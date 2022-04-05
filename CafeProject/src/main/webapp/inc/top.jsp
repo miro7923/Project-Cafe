@@ -75,16 +75,27 @@ START MODULE AREA 1: header1
 		{
 			%>
 				<a href="./logout.me">로그아웃</a>&nbsp;&nbsp;&nbsp;
-	        	<a href="./checkPass.me">마이페이지</a>
 			<%
+			if (id.equals("admin"))
+			{
+				%>
+				  <a href="./admin.me">관리자 페이지</a>
+				<%
+			}
+			else
+			{
+				%>
+	        	  <a href="./checkPass.me">마이페이지</a>
+				<%
+			}
 		}
 	%>
     </p>
       <!-- Search -->
-      <form name="Header1" action="" method="">
+      <!-- <form name="Header1" action="" method="">
         <input id="MOD_HEADER1_Search" class="MOD_HEADER1_Search" type="search" placeholder="Search"></input>
         <label for="MOD_HEADER1_Search">Search</label>
-      </form>
+      </form> -->
       <!-- Facebook SVG -->
 <!--      <a href="#" class="smIcon"><svg class="fb" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0v24h24v-24h-24zm16 7h-1.923c-.616 0-1.077.252-1.077.889v1.111h3l-.239 3h-2.761v8h-3v-8h-2v-3h2v-1.923c0-2.022 1.064-3.077 3.461-3.077h2.539v3z"/></svg></a>-->
       <!-- Twitter SVG -->

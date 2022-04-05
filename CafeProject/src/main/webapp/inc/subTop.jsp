@@ -15,7 +15,7 @@ START MODULE AREA 2: Menu 1
       </svg>
       <ul class="AP_Menu_List">
         <li>
-          <a href="./BoardList.bo" data-theme="_bgp">자유게시판</a>
+          <a href="./BoardList.bo?flag=n" data-theme="_bgp">자유게시판</a>
         </li>
 <!--
         <li>

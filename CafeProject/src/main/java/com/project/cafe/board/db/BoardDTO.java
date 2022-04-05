@@ -17,6 +17,8 @@ public class BoardDTO
 	private String image;
 	private String file;
 	private int comment_count;
+	private String image_uid;
+	private String file_uid;
 	
 	public int getNum() {
 		return num;
@@ -96,10 +98,23 @@ public class BoardDTO
 	public void setComment_count(int comment_count) {
 		this.comment_count = comment_count;
 	}
+	public String getImage_uid() {
+		return image_uid;
+	}
+	public void setImage_uid(String image_uid) {
+		this.image_uid = image_uid;
+	}
+	public String getFile_uid() {
+		return file_uid;
+	}
+	public void setFile_uid(String file_uid) {
+		this.file_uid = file_uid;
+	}
 	@Override
 	public String toString() {
 		return "BoardDTO [num=" + num + ", id=" + id + ", title=" + title + ", content=" + content + ", readcount="
 				+ readcount + ", re_ref=" + re_ref + ", re_lev=" + re_lev + ", re_seq=" + re_seq + ", date=" + date
-				+ ", ip=" + ip + ", image=" + image + ", file=" + file + ", comment_count=" + comment_count + "]";
+				+ ", ip=" + ip + ", image=" + image + ", file=" + file + ", comment_count=" + comment_count
+				+ ", image_uid=" + image_uid + ", file_uid=" + file_uid + "]";
 	}
 }

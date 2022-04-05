@@ -217,6 +217,19 @@ public class BoardFrontController extends HttpServlet
 				e.printStackTrace();
 			}
 		}
+		else if (command.equals("/AdminDeleteAction.bo"))
+		{
+			System.out.println("C : /AdminDeleteAction.bo 호출");
+			
+			action = new AdminDeleteAction();
+			
+			try {
+				forward = action.execute(request, response);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		else 
 		{
 			forward = new ActionForward();

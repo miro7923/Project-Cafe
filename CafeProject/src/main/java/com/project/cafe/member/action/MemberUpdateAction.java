@@ -33,7 +33,11 @@ public class MemberUpdateAction implements Action
 		
 		// 전달받은 파라미터 저장
 		MemberDTO dto = new MemberDTO();
-		dto.setAddress(request.getParameter("city"));
+		
+		// 주소 저장
+		dto.setPostalcode(Integer.parseInt(request.getParameter("postalcode")));
+		dto.setRoad_address(request.getParameter("roadAddress"));
+		dto.setDetail_address(request.getParameter("detailAddress"));
 		
 		// 나이 계산
 		int age = getAge(request.getParameter("birth"));

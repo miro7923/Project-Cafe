@@ -19,16 +19,9 @@ public class BoardReWriteAction implements Action
 		request.setCharacterEncoding("UTF-8");
 		
 		// 파라메터 저장
-		BoardDTO dto = new BoardDTO();
-		dto.setContent(request.getParameter("content"));
-		dto.setId(request.getParameter("id"));
-		dto.setIp(request.getRemoteAddr());
-		dto.setNum(Integer.parseInt(request.getParameter("num")));
-		dto.setRe_lev(Integer.parseInt(request.getParameter("re_lev")));
-		dto.setRe_ref(Integer.parseInt(request.getParameter("re_ref")));
-		dto.setRe_seq(Integer.parseInt(request.getParameter("re_seq")));
+		FileUpload fu = new FileUpload();
+		BoardDTO dto = fu.upload(request);
 		dto.setReadcount(0);
-		dto.setTitle(request.getParameter("title"));
 		
 		// DB 연결해서 글 저장
 		BoardDAO dao = new BoardDAO();
@@ -36,7 +29,7 @@ public class BoardReWriteAction implements Action
 		
 		// 게시글 목록으로 이동
 		ActionForward forward = new ActionForward();
-		forward.setPath("./BoardList.bo");
+		forward.setPath("./BoardList.bo?flag=n");
 		forward.setRedirect(true);
 		
 		return forward;

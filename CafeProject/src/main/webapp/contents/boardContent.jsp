@@ -93,11 +93,15 @@ START MODULE AREA 3: Sub Navigation 1
 		    <span class="comDate">
 		      <%=coList.get(i).getCommentedDate() %>&nbsp;
 		    </span>
-		    <span>
 		    <!-- 본인 글 일때만 수정/삭제 가능 -->
-		    <%if (id != null && id.equals(coList.get(i).getId())) { %>
-		      <a href="javascript:void(0);" onclick="showCommentBox(<%=i %>);" id="modify">수정&nbsp;</a>
-		    </span>
+		    <!-- 관리자는 삭제만 가능 -->
+		    <%if ((id != null && id.equals(coList.get(i).getId())) || (id != null && id.equals("admin"))) 
+		      {
+		    	if (id.equals(coList.get(i).getId())) { %>
+  		      <span>
+		        <a href="javascript:void(0);" onclick="showCommentBox(<%=i %>);" id="modify">수정&nbsp;</a>
+		      </span>
+		    <% } %>
 		    <span>
 		      <a href="javascript:void(0);" onclick="confirmDelete(<%=coList.get(i).getNum()%>, <%=coList.get(i).getPost_num()%>, <%=pageNum%>);">삭제&nbsp;</a>
 		    </span>
@@ -123,16 +127,19 @@ START MODULE AREA 3: Sub Navigation 1
 		<!-- 댓글 영역 -->
 		
 		<div id="boardPage">
-		  <%if (null != id && id.equals(dto.getId())) { %>
+		  <%if ((null != id && id.equals(dto.getId())) || (id != null & id.equals("admin"))) 
+		    {
+			  if (id.equals(dto.getId())) { %>
 		    <button type="button" class="btn" 
 		      onclick="location.href='./BoardModify.bo?num=<%=dto.getNum()%>&pageNum=<%=pageNum%>';">수정하기</button>
+		      <% } %>
 		    <button type="button" class="btn" 
 		      onclick="deleteCheck(<%=dto.getNum()%>, <%=pageNum%>);">삭제하기</button>
-		  <%} %>
+		  <% } %>
 		  <button type="button" class="btn" 
 		    onclick="location.href='./BoardReWrite.bo?num=<%=dto.getNum()%>&re_ref=<%=dto.getRe_ref()%>&re_lev=<%=dto.getRe_lev()%>&re_seq=<%=dto.getRe_seq()%>';">답글쓰기</button>
 		  <button type="button" class="btn" 
-		    onclick="location.href='./BoardList.bo?pageNum=<%=pageNum%>';">목록이동</button>
+		    onclick="location.href='./BoardList.bo?flag=n&pageNum=<%=pageNum%>';">목록이동</button>
 		</div>
     </div>
   </div>

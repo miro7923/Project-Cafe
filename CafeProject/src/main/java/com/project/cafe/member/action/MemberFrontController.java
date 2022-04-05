@@ -131,6 +131,58 @@ public class MemberFrontController extends HttpServlet
 				e.printStackTrace();
 			}
 		}
+		else if (command.equals("/MemberContentAction.me"))
+		{
+			System.out.println("C : /MemberContentAction.me 호출");
+			
+			action = new MemberContentAction();
+			
+			try {
+				forward = action.execute(req, resp);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if (command.equals("/MemberListAction.me"))
+		{
+			System.out.println("C : /MemberListAction.me 호출");
+			
+			action = new MemberListAction();
+			
+			try {
+				forward = action.execute(req, resp);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if (command.equals("/AdminDeleteAction.me"))
+		{
+			System.out.println("C : /AdminDeleteAction.me 호출");
+			
+			action = new AdminDeleteAction();
+			
+			try {
+				forward = action.execute(req, resp);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if (command.equals("/MemberInfoAction.me"))
+		{
+			System.out.println("C : /MemberInfoAction.me 호출");
+			
+			action = new MemberInfoAction();
+			
+			try {
+				forward = action.execute(req, resp);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		else
 		{
 			forward = new ActionForward();
@@ -169,6 +221,16 @@ public class MemberFrontController extends HttpServlet
 			{
 				System.out.println("C : 삭제 확인 페이지 호출");
 				forward.setPath("./member/delete.jsp");
+			}
+			else if (command.equals("/admin.me"))
+			{
+				System.out.println("C : 관리자 페이지 호출");
+				forward.setPath("./admin/admin.jsp");
+			}
+			else if (command.equals("/MemberManagement.me"))
+			{
+				System.out.println("C : 회원관리 페이지 호출");
+				forward.setPath("./admin/memberManagement.jsp");
 			}
 			
 			forward.setRedirect(false);

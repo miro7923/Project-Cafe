@@ -17,6 +17,11 @@ public class BoardListAction implements Action
 	{
 		System.out.println("M : BoardListAction - execute() 호출");
 		
+		// 어디로 이동할 지 결정하는 정보 받아오기
+		// a : 관리자 페이지의 게시글 관리 페이지
+		// n : 일반 게시판
+		String flag = request.getParameter("flag");
+		
 		// BoardDAO 객체 생성
 		BoardDAO dao = new BoardDAO();
 		
@@ -78,8 +83,17 @@ public class BoardListAction implements Action
 		
 		// 페이지 이동
 		ActionForward forward = new ActionForward();
-		forward.setPath("./contents/boardList.jsp");
-		forward.setRedirect(false);
+		
+		if (flag.equals("a"))
+		{
+			forward.setPath("./admin/boardManagement.jsp");
+			forward.setRedirect(false);
+		}
+		else 
+		{
+			forward.setPath("./contents/boardList.jsp");
+			forward.setRedirect(false);			
+		}
 		
 		return forward;
 	}
