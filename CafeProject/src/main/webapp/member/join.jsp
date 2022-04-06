@@ -22,22 +22,11 @@ START MODULE AREA 3: Text | Form
 <section class="MOD_SUBNAVIGATION1">
   <div data-layout="_r">
     <div data-layout="al16 al-o2 de-o1 de6 ec4">
-      <nav class="MOD_SUBNAVIGATION1_Menu" data-theme="_bo2">
-        <p class="MOD_SUBNAVIGATION1_Menutitle" data-theme="_bgs">Menu</p>
-        <ul>
-          <li><a href="#">최신글 보기</a></li>
-          <li><a href="#">출석부</a></li>
-          <li><a href="#">자유게시판</a></li>
-          <li><a href="#">자료실</a></li>
-<!--          <li><a href="#">Sub menu item 5</a></li>-->
-<!--          <li><a href="#">Sub menu item 6</a></li>-->
-<!--          <li><a href="#">Sub menu item 7</a></li>-->
-        </ul>
-      </nav>
+      <jsp:include page="../inc/leftNav.jsp"></jsp:include>
     </div>
     <div data-layout="al-o1 de-o2 de10" class="MOD_SUBNAVIGATION1_Page">
       <h3>회원가입</h3><br>
-      <form name="join" action="./MemberJoinAction.me" method="post" onsubmit="return finalCheck();"><!-- 빌드 때 onsubmit=return finalCheck() 추가하기! -->
+      <form name="join" action="./MemberJoinAction.me" method="post" onsubmit="return finalCheck();">
         <div class="formRow">
           <label for="MOD_TEXTFORM_NameField">아이디 </label><input type="text" name="id" id="id" placeholder="5~10자 이내의 영문+숫자 조합">
         </div>
@@ -130,7 +119,7 @@ END MODULE AREA 4: Footer 2
 
 <script src="${pageContext.request.contextPath}/js/index.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="${pageContext.request.contextPath}/js/join.js?testNm=3"></script>
+<script src="${pageContext.request.contextPath}/js/join.js?testNm=2"></script>
 </body>
 
 </html>

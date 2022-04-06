@@ -33,6 +33,8 @@ START MODULE AREA 3: Sub Navigation 1
 	BoardDTO dto = (BoardDTO)request.getAttribute("dto");
 	String pageNum = (String)request.getAttribute("pageNum");
 	ArrayList<CommentDTO> coList = (ArrayList<CommentDTO>)request.getAttribute("coList");
+	System.out.println("dto.image_uid: "+dto.getImage_uid());
+	System.out.println("dto.file_uid: "+dto.getFile_uid());
 %>
 <section class="MOD_SUBNAVIGATION1">
   <div data-layout="_r">
@@ -61,19 +63,20 @@ START MODULE AREA 3: Sub Navigation 1
 		<tbody>
 			<tr>
 			  <td colspan="5" style="white-space:pre-wrap; word-wrap:break-word; word-break: break-all;"><%=dto.getContent() %><br><br>
-			  <%if (dto.getImage() != null && !dto.getImage().equals("없음")) { %>
-			  <img src="./BoardImgAction.bo?img_name=<%=dto.getImage() %>"><br><br><br></td>
+			  <%if (dto.getImage_uid() != null && !dto.getImage_uid().equals("없음")) { %>
+			  <!-- 실제 서버에 업로드 된 파일명이 중복되면 이름이 바뀌기 때문에 바뀐 파일명을 참조해야 한다. -->
+			  <img src="./BoardImgAction.bo?img_name=<%=dto.getImage_uid() %>"><br><br><br></td>
 			  <%} %>
 			</tr>
 			<tr>
 			  <td colspan="2">첨부파일</td>
 			  <td colspan="3">
 			  <!-- 첨부파일이 있을 때에만 하이퍼링크 연결 -->
-			  <%if (dto.getFile() == null || dto.getFile().equals("없음")) { %>
-			    <%=dto.getFile() %>
+			  <%if (dto.getFile_uid() == null || dto.getFile_uid().equals("없음")) { %>
+			    없음
 			  <%}
 			    else {%>
-			    <a href="./BoardFileDownloadAction.bo?file_name=<%=dto.getFile() %>"><%=dto.getFile() %></a>
+			    <a href="./BoardFileDownloadAction.bo?file_name=<%=dto.getFile_uid() %>"><%=dto.getFile() %></a>
 			    <%} %>
 			  </td>
 			</tr>
@@ -127,19 +130,20 @@ START MODULE AREA 3: Sub Navigation 1
 		<!-- 댓글 영역 -->
 		
 		<div id="boardPage">
-		  <%if ((null != id && id.equals(dto.getId())) || (id != null & id.equals("admin"))) 
+  		  <button type="button" class="btn" 
+		    onclick="location.href='./BoardReWrite.bo?num=<%=dto.getNum()%>&re_ref=<%=dto.getRe_ref()%>&re_lev=<%=dto.getRe_lev()%>&re_seq=<%=dto.getRe_seq()%>';">답글쓰기</button>
+		  <button type="button" class="btn" 
+		    onclick="location.href='./BoardList.bo?flag=n&pageNum=<%=pageNum%>';">목록이동</button>
+		  <%if (id != null)
 		    {
 			  if (id.equals(dto.getId())) { %>
 		    <button type="button" class="btn" 
 		      onclick="location.href='./BoardModify.bo?num=<%=dto.getNum()%>&pageNum=<%=pageNum%>';">수정하기</button>
-		      <% } %>
+		      <% } 
+		         if (id.equals(dto.getId()) || id.equals("admin")) { %>
 		    <button type="button" class="btn" 
 		      onclick="deleteCheck(<%=dto.getNum()%>, <%=pageNum%>);">삭제하기</button>
-		  <% } %>
-		  <button type="button" class="btn" 
-		    onclick="location.href='./BoardReWrite.bo?num=<%=dto.getNum()%>&re_ref=<%=dto.getRe_ref()%>&re_lev=<%=dto.getRe_lev()%>&re_seq=<%=dto.getRe_seq()%>';">답글쓰기</button>
-		  <button type="button" class="btn" 
-		    onclick="location.href='./BoardList.bo?flag=n&pageNum=<%=pageNum%>';">목록이동</button>
+		  <% }} %>
 		</div>
     </div>
   </div>

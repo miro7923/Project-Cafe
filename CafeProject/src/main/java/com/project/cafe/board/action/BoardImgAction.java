@@ -38,6 +38,8 @@ public class BoardImgAction implements Action
 			imgName = thumbnailName;
 		}
 		
+		System.out.println("BoardImgAction - imgName: "+imgName);
+		
 		// 서버에 업로드 된 파일 위치 계산
 		ServletContext ctx = request.getServletContext();
 		String downloadPath = ctx.getRealPath(savePath);

@@ -6,7 +6,6 @@ var $login = false;
 
 function loginCheck() 
 {
-	console.log("loginCheck() 호출");
 	$.ajax({
 		type: 'POST',
 		async: false,

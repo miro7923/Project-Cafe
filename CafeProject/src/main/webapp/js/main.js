@@ -33,7 +33,7 @@ function getFeeds()
 					
 					var thumbnailId = '#thumbnail';
 					thumbnailId += (i + 1);
-					if (data[i].image == '없음')
+					if (data[i].image == '없음' || data[i].image == null)
 						$(thumbnailId).attr('src', '');
 					else 
 						$(thumbnailId).attr('src', './BoardImgAction.bo?thumbnail='+data[i].image);

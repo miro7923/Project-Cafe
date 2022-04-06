@@ -68,8 +68,8 @@ public class BoardDAO
 			
 			// 3. 데이터 삽입용 sql 작성 & pstmt 설정
 			sql = "insert into cafe_board(num, id, title, content, readcount, re_ref, re_lev, re_seq, date, ip, "
-					+ "file, image, comment_count) "
-					+ "values(?,?,?,?,?,?,?,?,now(),?,?,?,?)";
+					+ "file, image, comment_count, image_uid, file_uid) "
+					+ "values(?,?,?,?,?,?,?,?,now(),?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			
 			// ? 채우기
@@ -95,6 +95,8 @@ public class BoardDAO
 				pstmt.setString(11, dto.getImage());
 			
 			pstmt.setInt(12, 0);
+			pstmt.setString(13, dto.getImage_uid());
+			pstmt.setString(14, dto.getFile_uid());
 			
 			// 4. sql 실행
 			pstmt.executeUpdate();
@@ -176,6 +178,9 @@ public class BoardDAO
 				dto.setReadcount(rs.getInt("readcount"));
 				dto.setTitle(rs.getString("title"));
 				dto.setComment_count(rs.getInt("comment_count"));
+				dto.setImage(rs.getString("image"));
+				dto.setImage_uid(rs.getString("image_uid"));
+				dto.setFile_uid(rs.getString("file_uid"));
 				
 				postList.add(dto);
 			}
@@ -214,8 +219,10 @@ public class BoardDAO
 				dto.setContent(rs.getString("content"));
 				dto.setDate(rs.getDate("date"));
 				dto.setFile(rs.getString("file"));
+				dto.setFile_uid(rs.getString("file_uid"));
 				dto.setId(rs.getString("id"));
 				dto.setImage(rs.getString("image"));
+				dto.setImage_uid(rs.getString("image_uid"));
 				dto.setIp(rs.getString("ip"));
 				dto.setNum(rs.getInt("num"));
 				dto.setRe_lev(rs.getInt("re_lev"));
@@ -286,6 +293,7 @@ public class BoardDAO
 				dto.setContent(rs.getString("content"));
 				dto.setDate(rs.getDate("date"));
 				dto.setFile(rs.getString("file"));
+				dto.setFile_uid(rs.getString("file_uid"));
 				dto.setId(rs.getString("id"));
 				dto.setIp(rs.getString("ip"));
 				dto.setNum(rs.getInt("num"));
@@ -295,9 +303,11 @@ public class BoardDAO
 				dto.setReadcount(rs.getInt("readcount"));
 				dto.setTitle(rs.getString("title"));
 				dto.setImage(rs.getString("image"));
+				dto.setImage_uid(rs.getString("image_uid"));
 				dto.setComment_count(rs.getInt("comment_count"));
 				
 				System.out.println("DAO : 글 1개 정보 저장 완료");
+				System.out.println("DAO dto: "+dto.toString());
 			}
 		}
 		catch (Exception e) {
@@ -330,14 +340,37 @@ public class BoardDAO
 			if (rs.next())
 			{
 				// update 동작 수행
-				sql = "update cafe_board set title=?, content=?, image=?, file=? where num=?";
+				// 새로 수정한 글에서 파일 정보가 있으면 그걸로 수정 / 없으면 그대로 놔둠
+				if (dto.getImage() != null && dto.getImage_uid() != null)
+				{
+					sql = "update cafe_board set image=?, image_uid=? where num=?";
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, dto.getImage());
+					pstmt.setString(2, dto.getImage_uid());
+					pstmt.setInt(3, dto.getNum());
+					
+					pstmt.executeUpdate();
+				}
+				
+				if (dto.getFile() != null && dto.getFile_uid() != null)
+				{
+					sql = "update cafe_board set file=?, file_uid=? where num=?";
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, dto.getFile());
+					pstmt.setString(2, dto.getFile_uid());
+					pstmt.setInt(3, dto.getNum());
+					
+					pstmt.executeUpdate();
+				}
+				
+				sql = "update cafe_board set title=?, content=? where num=?";
 				pstmt = con.prepareStatement(sql);
 				
 				pstmt.setString(1, dto.getTitle());
 				pstmt.setString(2, dto.getContent());
-				pstmt.setString(3, dto.getImage());
-				pstmt.setString(4, dto.getFile());
-				pstmt.setInt(5, dto.getNum());
+				pstmt.setInt(3, dto.getNum());
 				
 				ret = pstmt.executeUpdate();
 				
@@ -437,7 +470,8 @@ public class BoardDAO
 			
 			// 답글 저장 동작 수행
 			sql = "insert into cafe_board(num, id, title, content, readcount, re_ref, re_lev, re_seq, date,"
-					+ " ip, file, image, comment_count) values(?,?,?,?,?,?,?,?,now(),?,?,?,?)";
+					+ " ip, file, image, comment_count, image_uid, file_uid)"
+					+ " values(?,?,?,?,?,?,?,?,now(),?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			
 			pstmt.setInt(1, curNum);
@@ -454,6 +488,9 @@ public class BoardDAO
 			pstmt.setString(10, dto.getFile());
 			pstmt.setString(11, dto.getImage());
 			pstmt.setInt(12, 0);
+			
+			pstmt.setString(13, dto.getImage_uid());
+			pstmt.setString(14, dto.getFile_uid());
 			
 			pstmt.executeUpdate();
 			
@@ -587,18 +624,15 @@ public class BoardDAO
 				lastNum = rs.getInt(1) + 1;
 			
 			// 댓글 삽입
-			sql = "insert into cafe_comment(num, post_num, id, content, commented_date, re_ref, re_lev, re_seq, ip)"
-					+ " values(?,?,?,?,now(),?,?,?,?)";
+			sql = "insert into cafe_comment(num, post_num, id, content, commented_date, ip)"
+					+ " values(?,?,?,?,now(),?)";
 			pstmt = con.prepareStatement(sql);
 			
 			pstmt.setInt(1, lastNum);
 			pstmt.setInt(2, dto.getPost_num());
 			pstmt.setString(3, dto.getId());
 			pstmt.setString(4, dto.getContent());
-			pstmt.setInt(5, lastNum);
-			pstmt.setInt(6, 0);
-			pstmt.setInt(7, 0);
-			pstmt.setString(8, dto.getIp());
+			pstmt.setString(5, dto.getIp());
 			
 			pstmt.executeUpdate();
 			

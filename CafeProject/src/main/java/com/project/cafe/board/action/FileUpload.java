@@ -31,7 +31,8 @@ public class FileUpload
 		MultipartParser mp = new MultipartParser(request, maxSize);
 		mp.setEncoding("utf-8");
 		Part part;
-		
+
+        // 기존에 저장되 있던 파일 정보를 저장할 변수
 		String imgUploadStatus = null;
 		String oldImgPath = null;
 		String oldImgName = null;
@@ -99,6 +100,7 @@ public class FileUpload
 				FilePart filePart = (FilePart) part;
 				if (filePart.getFileName() != null)
 				{
+					// 중복 파일명 처리 - 실제 참고할 파일은 rename된 파일이름 쓰기
 					filePart.setRenamePolicy(new DefaultFileRenamePolicy());
 
 					// 지정한 경로에 파일 쓰기
@@ -109,7 +111,8 @@ public class FileUpload
 					
 					// 원본 이미지 파일을 이용해서 썸네일을 만들어 저장
 					// 크기 지정 후 지정 경로에 저장
-					Thumbnails.of(new File(originDir.getPath() + File.separator + file))
+					// 썸네일 파일명은 중복처리된 파일명과 같게 만든다.
+					Thumbnails.of(new File(originDir.getPath() + File.separator + filePart.getFileName()))
 						.size(300, 400)
 						.toFiles(thumbnailDir, Rename.NO_CHANGE);
 					
@@ -117,7 +120,12 @@ public class FileUpload
 					System.out.println("img name: "+file);
 				}
 				else
-					System.out.println("img empty!");
+				{
+					dto.setImage("없음");
+					dto.setImage_uid("없음");
+					
+					System.out.println("첨부된 이미지 없음");
+				}
 			}
 			else if (part.isFile() && name.equals("file"))
 			{
@@ -131,6 +139,7 @@ public class FileUpload
 				String file = filePart.getFileName();
 				if (file != null)
 				{
+					filePart.setRenamePolicy(new DefaultFileRenamePolicy());
 					filePart.writeTo(dir); // 지정한 경로에 파일 쓰기
 					dto.setFile(file);
 					dto.setFile_uid(filePart.getFileName());
@@ -139,7 +148,12 @@ public class FileUpload
 					System.out.println("file name: "+file);
 				}
 				else
-					System.out.println("file empty!");
+				{
+					dto.setFile("없음");
+					dto.setFile_uid("없음");
+					
+					System.out.println("첨부된 파일 없음");
+				}
 			}
 		}
 		
@@ -151,12 +165,19 @@ public class FileUpload
 		{
 			if (imgUploadStatus.equals("false"))
 			{
+		        // 등록된 이미지를 삭제하는 경우
 				dto.setImage("없음");
 				File oldImg = new File(oldImgPath);
 				if (oldImg.exists()) oldImg.delete();
+				
+				// 썸네일도 삭제한다.
+				File oldThumbnail = new File(ctx.getRealPath("/thumbnail") + File.separator + oldImgName);
+				if (oldThumbnail.exists()) oldThumbnail.delete();
 			}
 			else 
 			{
+		        // 삭제하지 않는 경우
+				// 만약 dto의 파일명 필드가 비어 있으면 기존 파일명을 저장한다.
 				System.out.println("getImage(): "+dto.getImage());
 				if (dto.getImage() == null)
 					dto.setImage(oldImgName);

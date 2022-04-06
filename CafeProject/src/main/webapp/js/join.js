@@ -8,7 +8,6 @@ var $passConfirm = false;
 var $name = false;
 var $birth = false;
 var $gender = false;
-var $postalCode = false;
 var $city = false;
 var $phone = false;
 var $email = false;
@@ -22,6 +21,7 @@ $(document).ready(function()
 	passConfirm();
 	nameCheck();
 	birthCheck();
+	cityCheck();
 	emailCheck();
 	getToken();
 	checkValidateNum();	
@@ -63,7 +63,7 @@ function execDaumPostcode() {
                 document.getElementById("sample4_extraAddress").value = '';
             }*/
 
-            var guideTextBox = document.getElementById("guide");
+            /* var guideTextBox = document.getElementById("guide");
             // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
             if(data.autoRoadAddress) {
                 var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
@@ -77,7 +77,7 @@ function execDaumPostcode() {
             } else {
                 guideTextBox.innerHTML = '';
                 guideTextBox.style.display = 'none';
-            }
+            } */
         }
     }).open();
 }
@@ -289,38 +289,23 @@ function genderCheck()
 	}
 }
 
-function postalCodeCheck()
-{
-	console.log('postalCode 확인함수 호출');
-	if ($('#postalcode').val().length <= 0)
-	{
-		$postalCode = false;
-		$('#postalCodeMsg').text('우편번호를 입력하세요!');
-		$('#postalCodeMsg').css('color', 'red');
-		$('#postalcode').focus();
-	}
-	else
-	{
-		$postalCode = true;
-		$('#postalCodeMsg').text('');
-	}
-}
-
 // 도시 선택 여부 확인하는 함수
 function cityCheck()
 {
-	if ($('#roadAddress').val().length <= 0 || $('#detailAddress').val().length <= 0)
+	$('#detailAddress').blur(function()
 	{
-		$city = false;
-		$('#detailAddress').focus();
-		$('#cityMsg').text("주소를 입력하세요!");
-		$("#cityMsg").css("color", "red");
-	}	
-	else 
-	{
-		$city = true;
-		$('#cityMsg').text('');
-	}
+		if ($('#roadAddress').val().length <= 0 || $('#detailAddress').val().length <= 0)
+		{
+			$city = false;
+			$('#cityMsg').text("주소를 입력하세요!");
+			$("#cityMsg").css("color", "red");
+		}	
+		else 
+		{
+			$city = true;
+			$('#cityMsg').text(' ');
+		}		
+	});
 }
 
 // 휴대폰 번호 유효성 검사하는 함수
@@ -403,15 +388,10 @@ function finalCheck()
 	if (!$gender)
 		return false;
 		
-	postalCodeCheck();
-	if (!$postalCode)
-		return false;
-		
-	cityCheck();
 	if (!$city)
 		return false;
 	
-	/*phoneCheck();
+	phoneCheck();
 	if (!$phone)
 	{
 		join.phone1.focus();
@@ -422,7 +402,7 @@ function finalCheck()
 	{
 		join.validateNum.focus();
 		return false;
-	}*/
+	}
 	
 	if (!$email)
 	{

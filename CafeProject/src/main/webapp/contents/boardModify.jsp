@@ -68,9 +68,9 @@ START MODULE AREA 3: Sub Navigation 1
         </div>
           <div>등록된 파일 : <span id="fileName"><%=dto.getFile() %></span>&nbsp; <a href="javascript:void(0);" onclick="removeFile();">삭제</a></div><br>
         <button type="submit" class="btn">글 수정하기</button>
-        <button type="submit" class="btn" onclick="resetVal();">취소</button>
         <!--  onclick="location.href=./BoardContent.bo?num=dto.getNum()%>&pageNum=<pageNum%>;" -->
       </form>
+        <button class="btn" onclick="history.back();">취소</button>
       </div>
   </div>
 </section>
