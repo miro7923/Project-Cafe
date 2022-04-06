@@ -30,3 +30,4 @@
 * [27. 관리자 페이지에서 회원 상세정보 보기 기능 추가](https://miro7923.github.io/project%20log/cafe-project-27/)
 * [28. 관리자 페이지에서 게시글 관리 기능 추가](https://miro7923.github.io/project%20log/cafe-project-28/)
 * [29. 파일업로드 기능 수정(중복파일명 처리)](https://miro7923.github.io/project%20log/cafe-project-29/)
+* [글 내용 수정할 때 첨부파일이 사라지는 문제](https://miro7923.github.io/errorlog/warning-log-04/)
