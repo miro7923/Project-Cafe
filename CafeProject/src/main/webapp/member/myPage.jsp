@@ -98,7 +98,7 @@ START MODULE AREA 3: Text | Form
           <input id="phone1" type="tel" name="phone1" size="1" maxlength="3" value="<%=dto.getPhone().substring(0, 3) %>" oninput="tabCursor(1)"> - 
           <input id="phone2" type="tel" name="phone2" size="3" maxlength="4" value="<%=dto.getPhone().substring(3, 7) %>" oninput="tabCursor(2)"> - 
           <input id="phone3" type="tel" name="phone3" size="3" maxlength="4" value="<%=dto.getPhone().substring(7, 11) %>">
-          <button id="requestBtn" class="btn" type="submit" name="requestBtn" onclick="changePhoneBtnStatus();"></button>
+          <button id="requestBtn" class="btn" type="button" name="requestBtn" onclick="changePhoneBtnStatus();"></button>
           </label>
         </div>
         <div id="phoneMsg"></div>
@@ -106,7 +106,7 @@ START MODULE AREA 3: Text | Form
           <label for="MOD_TEXTFORM_EmailField">인증번호 </label>
           <label class="phone">
           <input type="text" name="validateNum" id="validateNum">
-          <button id="validateBtn" class="btn" type="submit" name="validateBtn">인증번호 확인</button>
+          <button id="validateBtn" class="btn" type="button" name="validateBtn">인증번호 확인</button>
           </label>
         </div>
         <div id="validateMsg"></div>
@@ -117,10 +117,6 @@ START MODULE AREA 3: Text | Form
         <div class="formRow">
           <label for="MOD_TEXTFORM_NameField">가입일 </label><input type="text" name="regdate" id="regdate" value="<%=regdate[0] %>" readonly>
         </div>
-<!--
-        <div class="formRow">
-          <label for="MOD_TEXTFORM_MsgField">Message </label><textarea id="MOD_TEXTFORM_MsgField" placeholder="Enter your message..."></textarea></div>
--->
         <button type="submit" class="btn">회원 정보 수정</button>
       </form><br>
       <form action="./delete.me" method="post">
@@ -145,9 +141,7 @@ END MODULE AREA 4: Footer 2
 -->
 
 <script src="${pageContext.request.contextPath}/js/index.js"></script>
-<script src="${pageContext.request.contextPath}/js/myPage.js?testNm=3"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="${pageContext.request.contextPath}/js/join.js?testNm=3"></script>
+<script src="${pageContext.request.contextPath}/js/myPage.js?testNm=4"></script>
 </body>
 
 </html>

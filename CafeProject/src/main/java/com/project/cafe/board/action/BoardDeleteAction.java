@@ -42,7 +42,7 @@ public class BoardDeleteAction implements Action
 
 		out.println("<script>");
 		out.println("alert('게시글 삭제가 완료되었습니다.');");
-		out.println("location.href='./BoardList.bo?pageNum="+pageNum+"';");
+		out.println("location.href='./BoardList.bo?flag=n&pageNum="+pageNum+"';");
 		out.println("</script>");
 		
 		out.close();

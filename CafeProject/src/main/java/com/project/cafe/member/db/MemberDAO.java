@@ -251,7 +251,7 @@ public class MemberDAO
 				{
 					// 회원 정보가 있으면
 					// 3. sql 작성 & pstmt 객체 생성
-					sql = "update cafe_members set pass=?, name=?, birth=?, age=?, gender=?, postacode=?,"
+					sql = "update cafe_members set pass=?, name=?, birth=?, age=?, gender=?, postalcode=?,"
 							+ " road_address=?, detail_address=?, phone=?, email=? where id=?";
 					pstmt = con.prepareStatement(sql);
 					

@@ -431,7 +431,7 @@ function getToken()
 				{
 					alert('인증번호 전송 완료!');
 					$validateNum = data;
-					console.log("$validateNum : "+$validateNum);
+					//console.log("$validateNum : "+$validateNum);
 				}
 			});					
 		}

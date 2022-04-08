@@ -176,7 +176,7 @@ button#requestBtn, button#validateBtn, button#postalBtn {
     width: 50%;
     margin-left: 10px;
     padding: 1px;
-    font-size: 14px;
+    font-size: 13px;
 }
 body.modern header .fb {
   fill: #3b5998;

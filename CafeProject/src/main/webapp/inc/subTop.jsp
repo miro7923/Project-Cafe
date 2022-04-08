@@ -37,7 +37,7 @@ START MODULE AREA 2: Menu 1
           <a href="#" data-theme="_bgp">인기글 보기</a>
         </li> -->
         <li>
-          <a href="#" data-theme="_bgp">Contact Us</a>
+          <a href="./Contact.bo" data-theme="_bgp">Contact Us</a>
         </li>
 <!--
         <li>

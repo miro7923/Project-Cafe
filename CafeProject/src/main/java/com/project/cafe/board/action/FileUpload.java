@@ -121,8 +121,8 @@ public class FileUpload
 				}
 				else
 				{
-					dto.setImage("없음");
-					dto.setImage_uid("없음");
+//					dto.setImage("없음");
+//					dto.setImage_uid("없음");
 					
 					System.out.println("첨부된 이미지 없음");
 				}
@@ -149,8 +149,8 @@ public class FileUpload
 				}
 				else
 				{
-					dto.setFile("없음");
-					dto.setFile_uid("없음");
+//					dto.setFile("없음");
+//					dto.setFile_uid("없음");
 					
 					System.out.println("첨부된 파일 없음");
 				}
@@ -167,6 +167,7 @@ public class FileUpload
 			{
 		        // 등록된 이미지를 삭제하는 경우
 				dto.setImage("없음");
+				dto.setImage_uid("없음");
 				File oldImg = new File(oldImgPath);
 				if (oldImg.exists()) oldImg.delete();
 				
@@ -180,7 +181,10 @@ public class FileUpload
 				// 만약 dto의 파일명 필드가 비어 있으면 기존 파일명을 저장한다.
 				System.out.println("getImage(): "+dto.getImage());
 				if (dto.getImage() == null)
+				{
 					dto.setImage(oldImgName);
+					dto.setImage_uid(oldImgName);
+				}
 			}
 		}
 		
@@ -190,6 +194,7 @@ public class FileUpload
 			if (fileUploadStatus.equals("false"))
 			{
 				dto.setFile("없음");
+				dto.setFile_uid("없음");
 				File oldFile = new File(oldFilePath);
 				if (oldFile.exists()) oldFile.delete();
 			}
@@ -197,7 +202,10 @@ public class FileUpload
 			{
 				System.out.println("getFile(): "+dto.getFile());
 				if (dto.getFile() == null)
+				{
 					dto.setFile(oldFileName);
+					dto.setFile_uid(oldFileName);
+				}
 			}
 		}
 		

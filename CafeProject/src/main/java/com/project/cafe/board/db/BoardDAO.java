@@ -536,7 +536,7 @@ public class BoardDAO
 				}
 				
 				dto.setContent(content);
-				dto.setImage(rs.getString("image"));
+				dto.setImage_uid(rs.getString("image_uid"));
 				
 				list.add(dto);
 			}
