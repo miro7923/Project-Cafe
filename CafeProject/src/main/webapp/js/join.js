@@ -21,7 +21,6 @@ $(document).ready(function()
 	passConfirm();
 	nameCheck();
 	birthCheck();
-	cityCheck();
 	emailCheck();
 	getToken();
 	checkValidateNum();	
@@ -292,20 +291,17 @@ function genderCheck()
 // 도시 선택 여부 확인하는 함수
 function cityCheck()
 {
-	$('#detailAddress').blur(function()
+	if ($('#roadAddress').val().length <= 0)
 	{
-		if ($('#roadAddress').val().length <= 0 || $('#detailAddress').val().length <= 0)
-		{
-			$city = false;
-			$('#cityMsg').text("주소를 입력하세요!");
-			$("#cityMsg").css("color", "red");
-		}	
-		else 
-		{
-			$city = true;
-			$('#cityMsg').text(' ');
-		}		
-	});
+		$city = false;
+		$('#cityMsg').text("주소를 입력하세요!");
+		$("#cityMsg").css("color", "red");
+	}	
+	else 
+	{
+		$city = true;
+		$('#cityMsg').text(' ');
+	}
 }
 
 // 휴대폰 번호 유효성 검사하는 함수
@@ -387,7 +383,8 @@ function finalCheck()
 	genderCheck();
 	if (!$gender)
 		return false;
-		
+	
+	cityCheck();
 	if (!$city)
 		return false;
 	
@@ -431,7 +428,6 @@ function getToken()
 				{
 					alert('인증번호 전송 완료!');
 					$validateNum = data;
-					//console.log("$validateNum : "+$validateNum);
 				}
 			});					
 		}

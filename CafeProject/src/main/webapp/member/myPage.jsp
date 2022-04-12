@@ -98,7 +98,7 @@ START MODULE AREA 3: Text | Form
           <input id="phone1" type="tel" name="phone1" size="1" maxlength="3" value="<%=dto.getPhone().substring(0, 3) %>" oninput="tabCursor(1)"> - 
           <input id="phone2" type="tel" name="phone2" size="3" maxlength="4" value="<%=dto.getPhone().substring(3, 7) %>" oninput="tabCursor(2)"> - 
           <input id="phone3" type="tel" name="phone3" size="3" maxlength="4" value="<%=dto.getPhone().substring(7, 11) %>">
-          <button id="requestBtn" class="btn" type="button" name="requestBtn" onclick="changePhoneBtnStatus();"></button>
+          <button id="requestBtn" class="btn" type="button" name="requestBtn" onclick="changePhoneBtnStatus();">휴대폰인증</button>
           </label>
         </div>
         <div id="phoneMsg"></div>
