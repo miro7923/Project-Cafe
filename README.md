@@ -1,5 +1,48 @@
-# Project-Cafe 소스 코드와 개발 일지
+# Project-Cafe
+* 커뮤니티 웹 사이트
+* 기간 : 2022.03.04 ~ 2022.04.06
+* 환경 : Apache Tomcat 8.5, Chrome 브라우저
+* 주제 : 커뮤니티 사이트
+* 개발 : Eclipse 2021-12, MySQL Workbench 8.0.19
+* 사용 언어 : JAVA(JDK 1.8), MySQL8, HTML5, CSS3, JavaScript, JSP & Servlet
+* 사용 기술 : MVC Model2, jQuery, Ajax, Open API(다음 우편번호, JAVA 메일)
+* 디자인 프레임워크 : Bootstrap
 * [프로젝트 요약 문서](https://github.com/miro7923/Project-Cafe/blob/main/portfolio_YujinHwang.pdf)
+
+# 프로젝트 상세내용
+## 주제
+```
+* 다음카페를 모티브로 한 커뮤니티 사이트
+```
+
+## 목적
+```
+* JAVA Servlet을 활용한 웹 사이트 제작 실습
+* 회원 관리 기능과 게시판 CRUD 기능 제작 실습
+```
+
+## 구현 목표
+* 회원
+```
+* 회원가입과 로그인을 통해 게시글 작성, 수정, 삭제 가능
+* 게시글 목록과 본문 조회 가능
+* 게시글에 댓글 달기 가능
+```
+
+* 관리자
+```
+* 가입된 회원 목록과 작성된 게시글 목록 조회 가능
+* 회원 일괄 탈퇴, 게시글 일괄 삭제 가능
+```
+
+## ERD 다이어그램
+
+<p align="center"><img src="images/e-r-Diagram.png"></p><br>
+
+## 구동 화면
+* 메인 페이지
+
+<p align="center"><img src="images/awsProjectPage.png"></p><br>
 
 ## 개발 일지
 * [1. 페이지 템플릿 세팅 및 서블릿 매핑](https://miro7923.github.io/project%20log/cafe-project-01/)
